@@ -55,15 +55,15 @@ export const FunctionSection: React.FC = () => {
                                 {/* SVG Connectors */}
                                 <svg style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1, pointerEvents: 'none' }}>
                                     {/* Trigger to Condition */}
-                                    <path d="M 230 170 C 255 170, 255 170, 280 170" fill="none" stroke="#3B82F6" strokeWidth="2" strokeDasharray="5,5" />
+                                    <path className="animated-path" d="M 230 170 C 255 170, 255 170, 280 170" fill="none" stroke="#3B82F6" strokeWidth="2" strokeDasharray="5,5" />
                                     <polygon points="275,166 280,170 275,174" fill="#3B82F6" />
 
                                     {/* Condition YES to Action */}
-                                    <path d="M 480 150 C 520 150, 520 90, 560 90" fill="none" stroke="#10B981" strokeWidth="2" strokeDasharray="5,5" />
+                                    <path className="animated-path" d="M 480 150 C 520 150, 520 90, 560 90" fill="none" stroke="#10B981" strokeWidth="2" strokeDasharray="5,5" />
                                     <polygon points="555,86 560,90 555,94" fill="#10B981" />
 
                                     {/* Condition NO to Action */}
-                                    <path d="M 480 220 C 515 220, 515 280, 550 280" fill="none" stroke="#EF4444" strokeWidth="2" strokeDasharray="5,5" />
+                                    <path className="animated-path" d="M 480 220 C 515 220, 515 280, 550 280" fill="none" stroke="#EF4444" strokeWidth="2" strokeDasharray="5,5" />
                                     <polygon points="545,276 550,280 545,284" fill="#EF4444" />
                                 </svg>
 
