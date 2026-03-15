@@ -1,9 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Shield, BarChart, GitMerge, Brain, Database, Server } from 'lucide-react';
-import { SiSap, SiSalesforce, SiSpringboot } from 'react-icons/si';
+import { Shield, BarChart, GitMerge, Brain, Database, Server, Users, CreditCard, Cloud, LayoutDashboard, Globe } from 'lucide-react';
+import { SiSap, SiSalesforce } from 'react-icons/si';
 import { GrOracle } from 'react-icons/gr';
-import { FaMicrochip } from 'react-icons/fa';
 import { Badge } from '../ui/Badge';
 
 const architectureLayers = [
@@ -153,11 +152,17 @@ export const ArchitectureSection: React.FC = () => {
                         </div>
                         <div className="flex" style={{ gap: 'var(--spacing-6)', flexWrap: 'wrap', justifyContent: 'center' }}>
                             {[
-                                { name: 'SAP ERP', icon: SiSap },
-                                { name: 'HRMS (SuccessFactors)', icon: GrOracle },
+                                { name: 'SAP S/4HANA (ERP)', icon: SiSap },
+                                { name: 'Oracle NetSuite (Finance)', icon: GrOracle },
+                                { name: 'Microsoft Dynamics 365', icon: Server },
                                 { name: 'Salesforce CRM', icon: SiSalesforce },
-                                { name: 'Bank APIs', icon: SiSpringboot },
-                                { name: 'IoT Sensors', icon: FaMicrochip }
+                                { name: 'HubSpot CRM', icon: Cloud },
+                                { name: 'Workday HCM', icon: Users },
+                                { name: 'SuccessFactors (HR)', icon: Users },
+                                { name: 'QuickBooks Enterprise', icon: CreditCard },
+                                { name: 'ServiceNow (ITSM)', icon: LayoutDashboard },
+                                { name: 'Snowflake (Data)', icon: Database },
+                                { name: 'AWS / Azure / GCP', icon: Globe },
                             ].map(sys => (
                                 <div key={sys.name} className="flex items-center gap-2" style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-base)', fontWeight: 500 }}>
                                     <sys.icon size={20} />
