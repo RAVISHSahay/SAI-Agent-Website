@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Shield, BarChart, GitMerge, Brain, Database, Server } from 'lucide-react';
-import { SiSap, SiOracle, SiSalesforce, SiSpringboot } from 'react-icons/si';
+import { SiSap, SiSalesforce, SiSpringboot } from 'react-icons/si';
+import { GrOracle } from 'react-icons/gr';
 import { FaMicrochip } from 'react-icons/fa';
 import { Badge } from '../ui/Badge';
 
@@ -145,7 +146,7 @@ export const ArchitectureSection: React.FC = () => {
                         <div className="flex" style={{ gap: 'var(--spacing-6)', flexWrap: 'wrap', justifyContent: 'center' }}>
                             {[
                                 { name: 'SAP ERP', icon: SiSap },
-                                { name: 'HRMS (SuccessFactors)', icon: SiOracle },
+                                { name: 'HRMS (SuccessFactors)', icon: GrOracle },
                                 { name: 'Salesforce CRM', icon: SiSalesforce },
                                 { name: 'Bank APIs', icon: SiSpringboot },
                                 { name: 'IoT Sensors', icon: FaMicrochip }
