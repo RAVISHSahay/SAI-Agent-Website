@@ -46,13 +46,13 @@ const AgentCard: React.FC<AgentCardProps> = ({ title, icon: Icon, subtitle, valu
     <Card title={title} icon={Icon} subtitle={subtitle} className={className}>
         <div className="mt-4 pt-4 border-t" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
             <div className="text-sm font-semibold mb-2" style={{ color: '#10B981' }}>Value Creation</div>
-            <ul className="text-xs text-gray-400 space-y-1 mb-3">
-                {valuePoints.map((vp: string, i: number) => <li key={i}>• {vp}</li>)}
+            <ul className="text-sm text-gray-300 space-y-2 mb-4 list-disc pl-4" style={{ lineHeight: 1.5 }}>
+                {valuePoints.map((vp: string, i: number) => <li key={i} className="pl-1">{vp}</li>)}
             </ul>
             {example && (
                 <>
-                    <div className="text-xs font-semibold mb-1 text-gradient-accent">Real Example</div>
-                    <p className="text-xs text-gray-300 italic">"{example}"</p>
+                    <div className="text-sm font-semibold mb-2 text-gradient-accent">Real Example</div>
+                    <p className="text-sm text-gray-400 italic" style={{ lineHeight: 1.6 }}>"{example}"</p>
                 </>
             )}
         </div>

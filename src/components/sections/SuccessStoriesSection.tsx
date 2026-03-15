@@ -129,10 +129,10 @@ export const SuccessStoriesSection: React.FC = () => {
                     {logos.map((logo, idx) => (
                         <div key={idx} className="flex items-center justify-center text-center group cursor-default" style={{ height: '80px', transition: 'all 0.4s ease' }}>
                             <span className="text-gray-400 group-hover:text-white transition-colors duration-300" style={{ 
-                                fontWeight: 700, 
+                                fontWeight: 600, 
                                 fontSize: '0.95rem', 
-                                textTransform: 'uppercase', 
-                                letterSpacing: '2px', 
+                                textTransform: 'capitalize', 
+                                letterSpacing: '0.02em', 
                                 fontFamily: 'var(--font-heading)',
                                 lineHeight: '1.4',
                                 display: 'inline-block'

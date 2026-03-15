@@ -46,11 +46,11 @@ export const Card: React.FC<CardProps> = ({
             </div>
 
             <div>
-                <h3 style={{ fontSize: 'var(--font-size-xl)', marginBottom: 'var(--spacing-1)', color: 'var(--color-text)' }}>
+                <h3 style={{ fontSize: '1.35rem', fontWeight: 700, letterSpacing: '-0.02em', marginBottom: 'var(--spacing-2)', color: 'var(--color-text)', lineHeight: 1.2 }}>
                     {title}
                 </h3>
                 {subtitle && (
-                    <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-muted)' }}>
+                    <p style={{ fontSize: '0.95rem', color: '#9CA3AF', lineHeight: 1.6 }}>
                         {subtitle}
                     </p>
                 )}
