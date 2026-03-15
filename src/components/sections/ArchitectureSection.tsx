@@ -12,35 +12,40 @@ const architectureLayers = [
         title: 'LAYER 5: SECURITY, GOVERNANCE & COMPLIANCE',
         icon: Shield,
         color: '#F59E0B',
-        components: ['Encryption', 'Access Control', 'Audit Trail', 'Compliance Monitor', 'DR/BCP']
+        description: 'ISO 27001 & SOC 2 certified security protocols ensuring end-to-end data safety.',
+        components: ['AES-256 Encryption', 'Zero-Trust Access Control', 'Immutable Audit Trails', 'DPDP / GDPR Mappers', 'Automated DR/BCP']
     },
     {
         id: 'layer-4',
         title: 'LAYER 4: MONITORING, ANALYTICS & FEEDBACK',
         icon: BarChart,
         color: '#00D4FF',
-        components: ['Real-Time Monitoring', 'Executive Dashboards', 'Continuous Learning', 'Model Retraining']
+        description: 'Provide executives with real-time financial transparency and anomaly alerts.',
+        components: ['Stream Processing Metrics', 'CFO Executive Dashboards', 'Continuous Learning Loops', 'Auto Model Retraining']
     },
     {
         id: 'layer-3',
         title: 'LAYER 3: WORKFLOW ORCHESTRATION & AUTOMATION',
         icon: GitMerge,
         color: '#10B981',
-        components: ['Apache Airflow', 'RPA Bots', 'Action Executors', 'Intelligent Routing', 'SLA Management']
+        description: 'Intelligent process routing and execution layer handling mission-critical jobs.',
+        components: ['Apache Airflow / Kafka', 'RPA Hand-offs', 'Action Executors', 'Intelligent Routing', 'Microsecond SLA Management']
     },
     {
         id: 'layer-2',
         title: 'LAYER 2: AI PROCESSING & DECISION ENGINE',
         icon: Brain,
         color: '#635BFF',
-        components: ['ML Models (XGBoost, LSTM)', 'NLP (BERT)', 'Computer Vision (YOLOv5)', 'Business Rules Engine']
+        description: 'The cognitive core running highly specialized models for deterministic outcomes.',
+        components: ['XGBoost / Random Forest', 'NLP (Enterprise LLMs)', 'Computer Vision (YOLOv5)', 'Business Rule Enforcers']
     },
     {
         id: 'layer-1',
         title: 'LAYER 1: DATA INTEGRATION & INGESTION',
         icon: Database,
         color: '#EC4899',
-        components: ['SAP Connectors', 'ERP APIs', 'HRMS Integration', 'OCR Engine', 'Schema Validation']
+        description: 'Secure, high-bandwidth pipelines connecting deeply with legacy enterprise systems.',
+        components: ['SAP RFC / BAPI Connectors', 'REST / GraphQL APIs', 'Legacy Database Drivers', 'Enterprise OCR Engine', 'Schema Validation']
     }
 ];
 
@@ -97,9 +102,12 @@ export const ArchitectureSection: React.FC = () => {
                                     </div>
 
                                     <div style={{ flex: 1 }}>
-                                        <h3 style={{ fontSize: 'var(--font-size-xl)', marginBottom: 'var(--spacing-3)' }}>
+                                        <h3 style={{ fontSize: 'var(--font-size-xl)', marginBottom: 'var(--spacing-2)' }}>
                                             {layer.title}
                                         </h3>
+                                        <p style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-sm)', marginBottom: 'var(--spacing-4)', lineHeight: 1.5 }}>
+                                            {layer.description}
+                                        </p>
                                         <div className="flex" style={{ gap: 'var(--spacing-2)', flexWrap: 'wrap' }}>
                                             {layer.components.map(comp => (
                                                 <span

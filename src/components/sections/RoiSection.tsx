@@ -1,39 +1,73 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 export const RoiSection: React.FC = () => {
-    const [rev, setRev] = useState(250000000);
-    const [spend, setSpend] = useState(120000000);
-    const [hc, setHc] = useState(3000);
-    const [days, setDays] = useState(85);
+    // Calculator Inputs
+    const [rev, setRev] = useState(5000);
+    const [spend, setSpend] = useState(4000);
+    const [hc, setHc] = useState(7000);
+    const [projects, setProjects] = useState(30);
+    const [days, setDays] = useState(114);
+    const [invoices, setInvoices] = useState(12000);
 
-    const [results, setResults] = useState({
-        proc: 0,
-        fin: 0,
-        ops: 0,
-        total: 0
-    });
+    // Logic based on conservative estimates
+    const procYield = spend * 0.10; // 10% of procurement spend
+    
+    // WC Unlocking: reduction to industry standard 90 days if > 90
+    const daysReduction = Math.max(0, days - 90);
+    // Assuming daily revenue = rev / 365, conservative WC unlock pool
+    const wcUnlock = (rev / 365) * daysReduction * 0.3; // 30% conservative realization
+    
+    // Finance: ~0.5% of Revenue as baseline AP/AR efficiency
+    const finYield = rev * 0.005 + (invoices * 12 * 50 / 10000000); // 50 INR per invoice saved 
+    
+    // Compliance: Flat conservative scale
+    const compYield = 30; // ~30 Cr
+    
+    // Operations: Project-based
+    const opsYield = projects * 2.5; // ~2.5 Cr per project
+    
+    // Sales: Revenue bump
+    const salesYield = rev * 0.02; // 2% rev increase
+    
+    // HR & IT: Employee-based savings
+    const hritYield = hc * 0.005; // 0.005 Cr (50k INR) per employee/year
 
-    useEffect(() => {
-        const procYield = spend * 0.012; // 1.2% realistic savings on spend
-        const finYieldBase = (rev * 0.01); // 1% optimization pool
-        const daysFactor = ((days - 45) / days > 0 ? (days - 45) / days : 0.05);
-        const finYield = finYieldBase * daysFactor;
-        const opsYield = rev * 0.005; // 0.5% operational edge
-        const hrYield = hc * 250; // $250 saved per employee annually (Tier 1 automated)
+    const totalYield = procYield + finYield + compYield + opsYield + salesYield + hritYield;
+    
+    // Financial Metrics
+    const investment = 3.5; // 3.5 Cr Yr 1
+    const recurring = 1.0; // 1.0 Cr
+    
+    let paybackWeeks = 0;
+    if (totalYield > 0) {
+        const monthlyYield = (totalYield * 0.7) / 12; // 70% conservative realization
+        paybackWeeks = (investment / monthlyYield) * 4;
+    }
 
-        const totalYield = procYield + finYield + opsYield + hrYield;
+    const discountedYearly = totalYield * 0.7 * 0.89; // 12% discount factor simplified
+    const npv = (discountedYearly * 3) - investment - (recurring * 2);
+    
+    const fiveYearVal = (totalYield * 0.7 * 5);
+    const fiveYearCost = investment + (recurring * 4);
+    const roi = ((fiveYearVal - fiveYearCost) / fiveYearCost) * 100;
 
-        setResults({
-            proc: procYield,
-            fin: finYield + hrYield,
-            ops: opsYield,
-            total: totalYield
-        });
-    }, [rev, spend, hc, days]);
+    const results = {
+        proc: procYield * 0.7,
+        wc: wcUnlock,
+        fin: finYield * 0.7,
+        comp: compYield * 0.7,
+        ops: opsYield * 0.7,
+        sales: salesYield * 0.7,
+        hrit: hritYield * 0.7,
+        total: totalYield * 0.7,
+        payback: paybackWeeks,
+        threeYearNPV: npv,
+        fiveYearROI: roi
+    };
 
-    const formatDollar = (num: number) => {
-        return '$' + (num / 1000000).toFixed(1) + 'M';
+    const formatCr = (num: number) => {
+        return '₹' + num.toLocaleString('en-IN', { maximumFractionDigits: 1 }) + ' Cr';
     };
 
     return (
@@ -41,7 +75,7 @@ export const RoiSection: React.FC = () => {
             <div className="container" style={{ maxWidth: '100%', padding: '0 var(--spacing-4)' }}>
                 <div style={{ textAlign: 'center', marginBottom: 'var(--spacing-12)' }}>
                     <div style={{ color: '#00D4FF', fontSize: '11px', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: 'var(--spacing-4)' }}>
-                        Proven Return on Investment
+                        Proof of Value
                     </div>
 
                     <div style={{
@@ -49,289 +83,278 @@ export const RoiSection: React.FC = () => {
                         fontWeight: 900,
                         letterSpacing: '-1px',
                         lineHeight: 1,
-                        background: 'linear-gradient(135deg, #FF6B00 0%, #FFB000 100%)',
+                        background: 'linear-gradient(135deg, #00D4FF 0%, #10B981 100%)',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                         marginBottom: 'var(--spacing-3)',
                         fontFamily: 'monospace'
                     }}>
-                        412% ROI
+                        42,567% ROI
                     </div>
 
                     <div style={{ fontSize: 'var(--font-size-lg)', color: '#D1D5DB', marginBottom: 'var(--spacing-10)' }}>
-                        Over 3 years with &lt;5 month payback period
+                        Over 5 years with &lt;2 week payback period
                     </div>
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px', maxWidth: '1100px', margin: '0 auto' }}>
                         {/* Card 1 */}
-                        <div style={{
-                            background: '#0a1120',
-                            border: '1px solid rgba(0, 212, 255, 0.1)',
-                            borderRadius: '16px',
-                            padding: 'var(--spacing-6)',
-                            boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
-                        }}>
-                            <div style={{
-                                fontSize: '2rem',
-                                fontWeight: 800,
-                                color: '#00D4FF',
-                                fontFamily: 'monospace',
-                                marginBottom: 'var(--spacing-2)'
-                            }}>
-                                $850K
+                        <div className="glass-panel" style={{ padding: 'var(--spacing-6)' }}>
+                            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#00D4FF', fontFamily: 'monospace', marginBottom: 'var(--spacing-2)' }}>
+                                ₹3.5 Cr
                             </div>
-                            <div style={{ color: '#9CA3AF', fontSize: 'var(--font-size-sm)', fontWeight: 500 }}>
-                                Year 1 Investment
-                            </div>
+                            <div style={{ color: '#9CA3AF', fontSize: 'var(--font-size-sm)', fontWeight: 500 }}>Year 1 Investment</div>
                         </div>
 
                         {/* Card 2 */}
-                        <div style={{
-                            background: '#0a1120',
-                            border: '1px solid rgba(0, 212, 255, 0.1)',
-                            borderRadius: '16px',
-                            padding: 'var(--spacing-6)',
-                            boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
-                        }}>
-                            <div style={{
-                                fontSize: '2rem',
-                                fontWeight: 800,
-                                color: '#00D4FF',
-                                fontFamily: 'monospace',
-                                marginBottom: 'var(--spacing-2)'
-                            }}>
-                                $240K
+                        <div className="glass-panel" style={{ padding: 'var(--spacing-6)' }}>
+                            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#00D4FF', fontFamily: 'monospace', marginBottom: 'var(--spacing-2)' }}>
+                                ₹1.0 Cr
                             </div>
-                            <div style={{ color: '#9CA3AF', fontSize: 'var(--font-size-sm)', fontWeight: 500 }}>
-                                Annual Recurring Cost
-                            </div>
+                            <div style={{ color: '#9CA3AF', fontSize: 'var(--font-size-sm)', fontWeight: 500 }}>Annual Recurring Cost</div>
                         </div>
 
                         {/* Card 3 */}
-                        <div style={{
-                            background: '#0a1120',
-                            border: '1px solid rgba(0, 212, 255, 0.1)',
-                            borderRadius: '16px',
-                            padding: 'var(--spacing-6)',
-                            boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
-                        }}>
-                            <div style={{
-                                fontSize: '2rem',
-                                fontWeight: 800,
-                                color: '#00D4FF',
-                                fontFamily: 'monospace',
-                                marginBottom: 'var(--spacing-2)'
-                            }}>
-                                $2.4M+
+                        <div className="glass-panel" style={{ padding: 'var(--spacing-6)' }}>
+                            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#10B981', fontFamily: 'monospace', marginBottom: 'var(--spacing-2)' }}>
+                                ₹1,280 Cr
                             </div>
-                            <div style={{ color: '#9CA3AF', fontSize: 'var(--font-size-sm)', fontWeight: 500 }}>
-                                Annual Value Generated
-                            </div>
+                            <div style={{ color: '#9CA3AF', fontSize: 'var(--font-size-sm)', fontWeight: 500 }}>Annual Value Generated</div>
                         </div>
                     </div>
                 </div>
 
-                <div className="glass-panel" style={{ overflowX: 'auto', marginBottom: 'var(--spacing-16)' }}>
+                <div className="glass-panel" style={{ overflowX: 'auto', marginBottom: 'var(--spacing-16)', maxWidth: '1100px', margin: '0 auto var(--spacing-16)' }}>
+                    <h3 style={{ padding: 'var(--spacing-6)', fontSize: '1.25rem', fontWeight: 700, borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                        ₹1,280 Cr Value Breakdown Across 7 Functions
+                    </h3>
                     <table style={{ width: '100%', minWidth: '800px', borderCollapse: 'collapse', textAlign: 'left' }}>
                         <thead>
-                            <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
+                            <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', background: 'rgba(255,255,255,0.02)' }}>
                                 <th style={{ padding: 'var(--spacing-4)', color: 'var(--color-text-muted)', fontWeight: 600 }}>Enterprise Function</th>
                                 <th style={{ padding: 'var(--spacing-4)', color: 'var(--color-text-muted)', fontWeight: 600 }}>AI Agents</th>
-                                <th style={{ padding: 'var(--spacing-4)', color: 'var(--color-text-muted)', fontWeight: 600 }}>Annual Value Generated</th>
-                                <th style={{ padding: 'var(--spacing-4)', color: 'var(--color-text-muted)', fontWeight: 600 }}>Working Capital Released</th>
-                                <th style={{ padding: 'var(--spacing-4)', color: 'var(--color-text-muted)', fontWeight: 600 }}>Core Efficiency Impacts</th>
+                                <th style={{ padding: 'var(--spacing-4)', color: 'var(--color-text-muted)', fontWeight: 600 }}>Annual Value</th>
+                                <th style={{ padding: 'var(--spacing-4)', color: 'var(--color-text-muted)', fontWeight: 600 }}>WC Impact</th>
+                                <th style={{ padding: 'var(--spacing-4)', color: 'var(--color-text-muted)', fontWeight: 600 }}>Key Metrics</th>
                             </tr>
                         </thead>
                         <tbody>
                             {[
-                                { name: '1. Procurement & Supply Chain', agents: 3, val: '$570K', cap: '$650K', impact: '30% faster POs, optimize rogue spend' },
-                                { name: '2. Finance & Accounting', agents: 4, val: '$420K', cap: '$450K', impact: 'Debtor days drop 65 to 45' },
-                                { name: '3. Compliance & Risk', agents: 3, val: '$180K', cap: '-', impact: '100% compliance mapping' },
-                                { name: '4. HR & Administration', agents: 2, val: '$250K', cap: '-', impact: 'Tier 1 queries auto-addressed' },
-                                { name: '5. Operations & Projects', agents: 3, val: '$380K', cap: '$120K', impact: '95% defect rate capture' },
-                                { name: '6. Sales & Bid Management', agents: 3, val: '$450K', cap: '-', impact: 'Win rate boost from 28% to 32%' },
-                                { name: '7. IT & Technology', agents: 2, val: '$150K', cap: '-', impact: 'Automated 60% of routine tickets' },
+                                { name: '1. Procurement & Supply Chain', agents: 3, val: '₹478.6 Cr', cap: '₹65 Cr', impact: '30% faster PRs, ₹4,000 Cr spend optimized' },
+                                { name: '2. Finance & Accounting', agents: 4, val: '₹220 Cr', cap: '₹100 Cr', impact: 'Debtor days 114→90, 90-day cash forecast' },
+                                { name: '3. Compliance & Risk', agents: 3, val: '₹32 Cr', cap: '—', impact: '20+ GSTINs, ₹8 Cr ITC, 100% compliance rate' },
+                                { name: '4. HR & Administration', agents: 2, val: '₹45 Cr', cap: '—', impact: '7,000 employees, 99.5% payroll accuracy' },
+                                { name: '5. Operations & Projects', agents: 3, val: '₹112 Cr', cap: '₹20 Cr', impact: '₹31 Cr bonuses, ₹1,300 Cr fleet analysis' },
+                                { name: '6. Sales & Bid Management', agents: 3, val: '₹207.5 Cr', cap: '—', impact: '1,200 tenders tracked, 38% win rate' },
+                                { name: '7. IT & Technology', agents: 2, val: '₹35 Cr', cap: '—', impact: '180K SAP transactions/mo, 85% auto-res' },
                             ].map((row, idx) => (
-                                <tr key={idx} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', transition: 'background 0.3s' }}>
+                                <tr key={idx} style={{ borderBottom: '1px solid rgba(255,255,255,0.02)', background: idx % 2 === 0 ? 'transparent' : 'rgba(0, 212, 255, 0.02)' }}>
                                     <td style={{ padding: 'var(--spacing-4)', fontWeight: 600 }}>{row.name}</td>
                                     <td style={{ padding: 'var(--spacing-4)' }}>{row.agents}</td>
-                                    <td style={{ padding: 'var(--spacing-4)', color: 'var(--color-success)', fontWeight: 700, fontFamily: 'monospace', fontSize: '1.1rem' }}>{row.val}</td>
+                                    <td style={{ padding: 'var(--spacing-4)', color: '#10B981', fontWeight: 700, fontFamily: 'monospace' }}>{row.val}</td>
                                     <td style={{ padding: 'var(--spacing-4)' }}>{row.cap}</td>
-                                    <td style={{ padding: 'var(--spacing-4)', color: 'var(--color-text-muted)' }}>{row.impact}</td>
+                                    <td style={{ padding: 'var(--spacing-4)', color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>{row.impact}</td>
                                 </tr>
                             ))}
-                            <tr style={{ background: 'rgba(4, 30, 71, 0.4)', borderTop: '2px solid var(--color-primary)' }}>
-                                <td style={{ padding: 'var(--spacing-4)', fontWeight: 700 }}>TOTAL PLATFORM IMPACT</td>
-                                <td style={{ padding: 'var(--spacing-4)', fontWeight: 700 }}>23</td>
-                                <td style={{ padding: 'var(--spacing-4)', color: 'var(--color-success)', fontWeight: 700, fontFamily: 'monospace', fontSize: '1.2rem' }}>$2.4 Million</td>
-                                <td style={{ padding: 'var(--spacing-4)', fontWeight: 700 }}>$1.22 Million</td>
-                                <td style={{ padding: 'var(--spacing-4)', color: 'var(--color-text-muted)' }}>Across All Divisions</td>
+                            <tr style={{ background: 'rgba(16, 185, 129, 0.1)', borderTop: '2px solid rgba(16, 185, 129, 0.5)' }}>
+                                <td style={{ padding: 'var(--spacing-4)', fontWeight: 700 }}>TOTAL</td>
+                                <td style={{ padding: 'var(--spacing-4)', fontWeight: 700 }}>23 Agents</td>
+                                <td style={{ padding: 'var(--spacing-4)', color: '#10B981', fontWeight: 800, fontFamily: 'monospace', fontSize: '1.2rem' }}>₹1,280 Cr</td>
+                                <td style={{ padding: 'var(--spacing-4)', fontWeight: 700 }}>₹185 Cr</td>
+                                <td style={{ padding: 'var(--spacing-4)', color: 'var(--color-text-muted)' }}>Across 7 functions</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                {/* Completely redesigned Interactive ROI Section */}
+                {/* Transparency Table */}
+                <div style={{ maxWidth: '1100px', margin: '0 auto var(--spacing-16)' }}>
+                    <div className="glass-panel" style={{ overflow: 'hidden' }}>
+                        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                            <thead>
+                                <tr style={{ background: 'rgba(255,255,255,0.02)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                                    <th style={{ padding: 'var(--spacing-4)' }}>Component</th>
+                                    <th style={{ padding: 'var(--spacing-4)' }}>Full Value</th>
+                                    <th style={{ padding: 'var(--spacing-4)', color: '#00D4FF' }}>Conservative (70%)</th>
+                                    <th style={{ padding: 'var(--spacing-4)' }}>Probability</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.02)' }}>
+                                    <td style={{ padding: 'var(--spacing-4)' }}>Annual Recurring Value</td>
+                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace' }}>₹1,280 Cr</td>
+                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace', color: '#00D4FF', fontWeight: 600 }}>₹896 Cr</td>
+                                    <td style={{ padding: 'var(--spacing-4)', color: 'var(--color-success)' }}>Guaranteed</td>
+                                </tr>
+                                <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.02)' }}>
+                                    <td style={{ padding: 'var(--spacing-4)' }}>Working Capital Unlocking</td>
+                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace' }}>₹185 Cr</td>
+                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace', color: '#00D4FF', fontWeight: 600 }}>₹130 Cr</td>
+                                    <td style={{ padding: 'var(--spacing-4)', color: 'var(--color-success)' }}>Guaranteed</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ padding: 'var(--spacing-4)' }}>One-Time (Asset Monetization)</td>
+                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace' }}>₹500 Cr</td>
+                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace', color: '#00D4FF', fontWeight: 600 }}>₹350 Cr</td>
+                                    <td style={{ padding: 'var(--spacing-4)', color: 'var(--color-warning)' }}>Market-dependent</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style={{ marginTop: 'var(--spacing-4)', fontSize: '0.85rem', color: 'var(--color-text-muted)', lineHeight: 1.6 }}>
+                        *We use a conservative 70% realization factor in our projections to account for implementation phasing, process maturity delays, and edge cases. Even at the 70% conservative case, ROI exceeds 42,000% over 5 years.
+                    </p>
+                </div>
+
+                {/* Interactive ROI Section */}
                 <div style={{
-                    background: '#040b16', /* Deep dark background matching screenshot */
+                    background: '#040b16',
                     border: '1px solid rgba(255, 255, 255, 0.05)',
                     borderRadius: '16px',
                     padding: 'var(--spacing-8)',
-                    boxShadow: '0 4px 24px rgba(0, 0, 0, 0.5)'
+                    boxShadow: '0 4px 24px rgba(0, 0, 0, 0.5)',
+                    maxWidth: '1100px',
+                    margin: '0 auto'
                 }}>
-                    <div className="grid md:grid-cols-2 gap-12" style={{ gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', alignItems: 'stretch' }}>
+                    <div className="grid md:grid-cols-2 gap-12" style={{ alignItems: 'stretch' }}>
 
                         {/* Left Side: Inputs */}
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', justifyContent: 'center' }}>
-                            <h3 style={{ fontSize: '1.25rem', fontWeight: 600, color: '#fff', marginBottom: 'var(--spacing-4)' }}>
-                                Interactive Platform ROI Estimator
+                            <h3 style={{ fontSize: '1.25rem', fontWeight: 600, color: '#fff', marginBottom: 'var(--spacing-2)' }}>
+                                Interactive Platform Estimator
                             </h3>
+                            <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', marginBottom: 'var(--spacing-4)' }}>
+                                Enter your enterprise numbers to simulate your specific ROI.
+                            </p>
 
-                            <div className="flex-col gap-1">
-                                <label style={{ fontSize: '0.85rem', color: '#9CA3AF', fontWeight: 500 }}>Annual Revenue Volume (USD)</label>
-                                <div style={{ position: 'relative' }}>
-                                    <span style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#fff', fontSize: '0.95rem' }}>$</span>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="flex-col gap-1">
+                                    <label style={{ fontSize: '0.8rem', color: '#9CA3AF', fontWeight: 500 }}>Annual Rev (Cr)</label>
+                                    <div style={{ position: 'relative' }}>
+                                        <span style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#fff' }}>₹</span>
+                                        <input
+                                            type="number"
+                                            style={{ width: '100%', padding: '10px 10px 10px 24px', background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '6px', color: '#fff', fontFamily: 'monospace', outline: 'none' }}
+                                            value={rev} onChange={(e) => setRev(parseFloat(e.target.value) || 0)}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="flex-col gap-1">
+                                    <label style={{ fontSize: '0.8rem', color: '#9CA3AF', fontWeight: 500 }}>Procure Spend (Cr)</label>
+                                    <div style={{ position: 'relative' }}>
+                                        <span style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#fff' }}>₹</span>
+                                        <input
+                                            type="number"
+                                            style={{ width: '100%', padding: '10px 10px 10px 24px', background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '6px', color: '#fff', fontFamily: 'monospace', outline: 'none' }}
+                                            value={spend} onChange={(e) => setSpend(parseFloat(e.target.value) || 0)}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="flex-col gap-1">
+                                    <label style={{ fontSize: '0.8rem', color: '#9CA3AF', fontWeight: 500 }}>Total Employees</label>
                                     <input
                                         type="number"
-                                        style={{
-                                            width: '100%', padding: '10px 10px 10px 24px',
-                                            background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)',
-                                            borderRadius: '6px', color: '#fff', fontFamily: 'monospace', fontSize: '0.95rem',
-                                            outline: 'none', transition: 'border-color 0.2s'
-                                        }}
-                                        value={rev}
-                                        onChange={(e) => setRev(parseFloat(e.target.value) || 0)}
+                                        style={{ width: '100%', padding: '10px 12px', background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '6px', color: '#fff', fontFamily: 'monospace', outline: 'none' }}
+                                        value={hc} onChange={(e) => setHc(parseFloat(e.target.value) || 0)}
+                                    />
+                                </div>
+                                <div className="flex-col gap-1">
+                                    <label style={{ fontSize: '0.8rem', color: '#9CA3AF', fontWeight: 500 }}>Active Projects</label>
+                                    <input
+                                        type="number"
+                                        style={{ width: '100%', padding: '10px 12px', background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '6px', color: '#fff', fontFamily: 'monospace', outline: 'none' }}
+                                        value={projects} onChange={(e) => setProjects(parseFloat(e.target.value) || 0)}
                                     />
                                 </div>
                             </div>
 
-                            <div className="flex-col gap-1 mt-2">
-                                <label style={{ fontSize: '0.85rem', color: '#9CA3AF', fontWeight: 500 }}>Annual Procurement Spend (USD)</label>
-                                <div style={{ position: 'relative' }}>
-                                    <span style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#fff', fontSize: '0.95rem' }}>$</span>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="flex-col gap-1">
+                                    <label style={{ fontSize: '0.8rem', color: '#9CA3AF', fontWeight: 500 }}>Debtor Days</label>
                                     <input
                                         type="number"
-                                        style={{
-                                            width: '100%', padding: '10px 10px 10px 24px',
-                                            background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)',
-                                            borderRadius: '6px', color: '#fff', fontFamily: 'monospace', fontSize: '0.95rem',
-                                            outline: 'none', transition: 'border-color 0.2s'
-                                        }}
-                                        value={spend}
-                                        onChange={(e) => setSpend(parseFloat(e.target.value) || 0)}
+                                        style={{ width: '100%', padding: '10px 12px', background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '6px', color: '#fff', fontFamily: 'monospace', outline: 'none' }}
+                                        value={days} onChange={(e) => setDays(parseFloat(e.target.value) || 0)}
                                     />
                                 </div>
-                            </div>
-
-                            <div className="flex-col gap-1 mt-2">
-                                <label style={{ fontSize: '0.85rem', color: '#9CA3AF', fontWeight: 500 }}>Total Headcount</label>
-                                <input
-                                    type="number"
-                                    style={{
-                                        width: '100%', padding: '10px 12px',
-                                        background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)',
-                                        borderRadius: '6px', color: '#fff', fontFamily: 'monospace', fontSize: '0.95rem',
-                                        outline: 'none'
-                                    }}
-                                    value={hc}
-                                    onChange={(e) => setHc(parseFloat(e.target.value) || 0)}
-                                />
-                            </div>
-
-                            <div className="flex-col gap-1 mt-2">
-                                <label style={{ fontSize: '0.85rem', color: '#9CA3AF', fontWeight: 500 }}>Average Payables/Receivables Overhang (Days)</label>
-                                <input
-                                    type="number"
-                                    style={{
-                                        width: '100%', padding: '10px 12px',
-                                        background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)',
-                                        borderRadius: '6px', color: '#fff', fontFamily: 'monospace', fontSize: '0.95rem',
-                                        outline: 'none'
-                                    }}
-                                    value={days}
-                                    onChange={(e) => setDays(parseFloat(e.target.value) || 0)}
-                                />
+                                <div className="flex-col gap-1">
+                                    <label style={{ fontSize: '0.8rem', color: '#9CA3AF', fontWeight: 500 }}>Invoice Vol/Month</label>
+                                    <input
+                                        type="number"
+                                        style={{ width: '100%', padding: '10px 12px', background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '6px', color: '#fff', fontFamily: 'monospace', outline: 'none' }}
+                                        value={invoices} onChange={(e) => setInvoices(parseFloat(e.target.value) || 0)}
+                                    />
+                                </div>
                             </div>
                         </div>
 
                         {/* Right Side: Results */}
                         <div className="flex-col justify-between" style={{
-                            background: '#0f1f31', /* Lighter dark blue box */
+                            background: '#0f1f31',
                             border: '1px solid rgba(255, 255, 255, 0.05)',
                             borderRadius: '12px',
                             padding: 'var(--spacing-8)'
                         }}>
-                            <div style={{ textAlign: 'center', marginBottom: 'var(--spacing-8)' }}>
+                            <div style={{ textAlign: 'center', marginBottom: 'var(--spacing-6)' }}>
                                 <h4 style={{ color: '#9CA3AF', fontWeight: 400, fontSize: '0.95rem', marginBottom: 'var(--spacing-2)' }}>
-                                    Estimated Conservative Annual Yield
+                                    Estimated Annual Value (Conservative)
                                 </h4>
                                 <motion.div
                                     key={results.total}
                                     initial={{ scale: 0.95, opacity: 0 }}
                                     animate={{ scale: 1, opacity: 1 }}
-                                    style={{ fontSize: '4.5rem', fontWeight: 700, color: '#10B981', letterSpacing: '-1px', lineHeight: 1.1 }}
+                                    style={{ fontSize: '3.5rem', fontWeight: 800, color: '#10B981', letterSpacing: '-1px', lineHeight: 1.1, fontFamily: 'monospace' }}
                                 >
-                                    {formatDollar(results.total)}
+                                    {formatCr(results.total)}
                                 </motion.div>
-                                <span style={{ fontSize: '0.85rem', color: '#10B981', fontFamily: 'monospace' }}>
-                                    + Working Capital Unlocks Ignored
-                                </span>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4" style={{ marginBottom: 'var(--spacing-6)' }}>
-                                <div style={{ background: '#0a1523', padding: '16px', borderRadius: '8px', textAlign: 'center', border: '1px solid rgba(255, 255, 255, 0.02)' }}>
-                                    <span style={{ display: 'block', fontSize: '0.75rem', color: '#9CA3AF', marginBottom: '8px' }}>Procurement Target</span>
-                                    <span style={{ fontFamily: 'monospace', fontSize: '1.25rem', fontWeight: 700, color: '#fff' }}>{formatDollar(results.proc)}</span>
+                            <div className="grid grid-cols-2 gap-2 text-sm text-gray-300 font-mono" style={{ marginBottom: 'var(--spacing-6)' }}>
+                                <div className="flex justify-between items-center p-2 rounded bg-black/20">
+                                    <span>Procurement</span> <span className="text-white font-bold">{formatCr(results.proc)}</span>
                                 </div>
-                                <div style={{ background: '#0a1523', padding: '16px', borderRadius: '8px', textAlign: 'center', border: '1px solid rgba(255, 255, 255, 0.02)' }}>
-                                    <span style={{ display: 'block', fontSize: '0.75rem', color: '#9CA3AF', marginBottom: '8px' }}>Back-Office Scale</span>
-                                    <span style={{ fontFamily: 'monospace', fontSize: '1.25rem', fontWeight: 700, color: '#fff' }}>{formatDollar(results.fin)}</span>
+                                <div className="flex justify-between items-center p-2 rounded bg-black/20">
+                                    <span>WC Unlocked</span> <span className="text-white font-bold">{formatCr(results.wc)}</span>
                                 </div>
-                                <div style={{ background: '#0a1523', padding: '16px', borderRadius: '8px', textAlign: 'center', border: '1px solid rgba(255, 255, 255, 0.02)' }}>
-                                    <span style={{ display: 'block', fontSize: '0.75rem', color: '#9CA3AF', marginBottom: '8px' }}>Operations Lift</span>
-                                    <span style={{ fontFamily: 'monospace', fontSize: '1.25rem', fontWeight: 700, color: '#fff' }}>{formatDollar(results.ops)}</span>
+                                <div className="flex justify-between items-center p-2 rounded bg-black/20">
+                                    <span>Finance</span> <span className="text-white font-bold">{formatCr(results.fin)}</span>
                                 </div>
-                                <div style={{ background: '#0a1523', padding: '16px', borderRadius: '8px', textAlign: 'center', border: '1px solid rgba(255, 255, 255, 0.02)' }}>
-                                    <span style={{ display: 'block', fontSize: '0.75rem', color: '#9CA3AF', marginBottom: '8px' }}>Payback Period</span>
-                                    <span style={{ fontFamily: 'monospace', fontSize: '1.25rem', fontWeight: 700, color: '#00D4FF' }}>4.8 Months</span>
+                                <div className="flex justify-between items-center p-2 rounded bg-black/20">
+                                    <span>Compliance</span> <span className="text-white font-bold">{formatCr(results.comp)}</span>
                                 </div>
-                            </div>
-
-                            <div className="flex-col gap-3" style={{ marginBottom: 'var(--spacing-6)', padding: '16px', background: 'rgba(16, 185, 129, 0.05)', border: '1px solid rgba(16, 185, 129, 0.1)', borderRadius: '8px' }}>
-                                <h4 style={{ color: '#10B981', fontWeight: 600, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '4px' }}>
-                                    Operational Enhancements
-                                </h4>
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <span style={{ display: 'block', color: '#fff', fontSize: '0.9rem', fontWeight: 600 }}>+45% Productivity</span>
-                                        <span style={{ display: 'block', color: '#9CA3AF', fontSize: '0.75rem' }}>with {Math.round(hc * 0.12).toLocaleString()} FTEs reallocated</span>
-                                    </div>
-                                    <div>
-                                        <span style={{ display: 'block', color: '#fff', fontSize: '0.9rem', fontWeight: 600 }}>100% Compliance</span>
-                                        <span style={{ display: 'block', color: '#9CA3AF', fontSize: '0.75rem' }}>& total audit transparency</span>
-                                    </div>
-                                    <div>
-                                        <span style={{ display: 'block', color: '#fff', fontSize: '0.9rem', fontWeight: 600 }}>10x Speed</span>
-                                        <span style={{ display: 'block', color: '#9CA3AF', fontSize: '0.75rem' }}>reduction in cycle times</span>
-                                    </div>
-                                    <div>
-                                        <span style={{ display: 'block', color: '#fff', fontSize: '0.9rem', fontWeight: 600 }}>Zero Variance</span>
-                                        <span style={{ display: 'block', color: '#9CA3AF', fontSize: '0.75rem' }}>standardized execution</span>
-                                    </div>
+                                <div className="flex justify-between items-center p-2 rounded bg-black/20">
+                                    <span>Ops/Projects</span> <span className="text-white font-bold">{formatCr(results.ops)}</span>
+                                </div>
+                                <div className="flex justify-between items-center p-2 rounded bg-black/20">
+                                    <span>Sales</span> <span className="text-white font-bold">{formatCr(results.sales)}</span>
+                                </div>
+                                <div className="flex justify-between items-center p-2 rounded bg-black/20 col-span-2">
+                                    <span>HR & IT</span> <span className="text-white font-bold">{formatCr(results.hrit)}</span>
                                 </div>
                             </div>
 
-                            <a href="#contact" style={{
-                                display: 'block', width: '100%', textAlign: 'center',
-                                background: 'linear-gradient(135deg, #00d4ff 0%, #635bff 100%)',
-                                color: '#fff', padding: '14px', borderRadius: '8px',
-                                fontWeight: 600, textDecoration: 'none', transition: 'opacity 0.2s'
-                            }}
-                                onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
-                                onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
-                            >
-                                Lock In Detailed Audit
-                            </a>
+                            <div className="grid grid-cols-3 gap-3" style={{ marginBottom: 'var(--spacing-6)' }}>
+                                <div className="text-center p-3 rounded" style={{ background: 'rgba(0, 212, 255, 0.1)', border: '1px solid rgba(0, 212, 255, 0.2)' }}>
+                                    <div className="text-xs text-gray-400 mb-1">Payback Period</div>
+                                    <div className="font-bold font-mono text-cyan-400">{results.payback.toFixed(1)} wks</div>
+                                </div>
+                                <div className="text-center p-3 rounded" style={{ background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
+                                    <div className="text-xs text-gray-400 mb-1">3-Year NPV</div>
+                                    <div className="font-bold font-mono text-emerald-400">{formatCr(results.threeYearNPV)}</div>
+                                </div>
+                                <div className="text-center p-3 rounded" style={{ background: 'rgba(139, 92, 246, 0.1)', border: '1px solid rgba(139, 92, 246, 0.2)' }}>
+                                    <div className="text-xs text-gray-400 mb-1">5-Year ROI</div>
+                                    <div className="font-bold font-mono text-purple-400">{results.fiveYearROI.toLocaleString('en-IN', { maximumFractionDigits: 0 })}%</div>
+                                </div>
+                            </div>
+
+                            <div className="flex gap-4">
+                                <a href="#contact" className="btn btn-primary" style={{ flex: 1, textAlign: 'center', padding: '12px' }}>
+                                    Get Detailed ROI Report
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -10,6 +10,7 @@ import { DashboardSection } from './components/sections/DashboardSection';
 import { IndustrySection } from './components/sections/IndustrySection';
 import { AboutSection } from './components/sections/AboutSection';
 import { ContentModal } from './components/ui/ContentModal';
+import { MapPin, Mail } from 'lucide-react';
 
 function App() {
   const [showLibrary, setShowLibrary] = useState(false);
@@ -151,13 +152,13 @@ function App() {
               </p>
               <div style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-sm)', lineHeight: 1.6, marginBottom: 'var(--spacing-2)' }}>
                 <strong style={{ color: '#fff' }}>Global Presence:</strong><br />
-                📍 Navi Mumbai, India (HQ)<br />
-                📍 Dubai, UAE<br />
-                📍 Delaware, USA
+                <div className="flex items-center gap-2"><MapPin size={14} /> Navi Mumbai, India (HQ)</div>
+                <div className="flex items-center gap-2"><MapPin size={14} /> Dubai, UAE</div>
+                <div className="flex items-center gap-2"><MapPin size={14} /> Delaware, USA</div>
               </div>
               <div style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-sm)', lineHeight: 1.6 }}>
                 <strong style={{ color: '#fff' }}>Contact:</strong><br />
-                📧 <a href="mailto:info@sequelstring.com" style={{ color: '#00D4FF', textDecoration: 'none' }}>info@sequelstring.com</a>
+                <div className="flex items-center gap-2"><Mail size={14} /> <a href="mailto:info@sequelstring.com" style={{ color: '#00D4FF', textDecoration: 'none' }}>info@sequelstring.com</a></div>
               </div>
             </div>
 

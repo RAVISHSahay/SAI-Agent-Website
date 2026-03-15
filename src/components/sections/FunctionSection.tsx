@@ -1,541 +1,215 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
-    ShieldCheck, Users,
-    Cog, Computer, FileText, Activity, Network, Database, Plug
+    ShoppingCart, PieChart, ShieldCheck, Users,
+    Cog, TrendingUp, Monitor, CheckCircle2, XOctagon, Target, Activity, FileText
 } from 'lucide-react';
 import { VerticalTabs, type Tab } from '../ui/VerticalTabs';
 import { Badge } from '../ui/Badge';
 import { Card } from '../ui/Card';
 
 const functionTabs: Tab[] = [
-    { id: 'mydecision-studio', label: 'MyDecision Studio', icon: Network, color: '#FF0055' },
-    { id: 'rag', label: 'Retrieval-Augmented Gen', icon: Database, color: '#8B5CF6' },
-    { id: 'testing', label: 'Testing & Simulation', icon: Activity, color: '#00D4FF' },
-    { id: 'deployment', label: 'Deployment & CI/CD', icon: Computer, color: '#10B981' },
-    { id: 'integration', label: 'Enterprise Integration', icon: Cog, color: '#F59E0B' },
-    { id: 'connectors', label: 'Integrations & Connectors', icon: Plug, color: '#F43F5E' },
-    { id: 'security', label: 'Security & Governance', icon: ShieldCheck, color: '#8B5CF6' },
-    { id: 'analytics', label: 'Analytics & Insights', icon: FileText, color: '#EC4899' },
-    { id: 'more', label: 'More', icon: FileText, color: '#3B82F6' }
+    { id: 'procurement', label: 'Procurement & Supply Chain', icon: ShoppingCart, color: '#3B82F6' },
+    { id: 'finance', label: 'Finance & Accounting', icon: PieChart, color: '#10B981' },
+    { id: 'compliance', label: 'Compliance & Risk', icon: ShieldCheck, color: '#F59E0B' },
+    { id: 'hr', label: 'HR & Administration', icon: Users, color: '#EC4899' },
+    { id: 'operations', label: 'Operations & Projects', icon: Cog, color: '#8B5CF6' },
+    { id: 'sales', label: 'Sales & BD', icon: TrendingUp, color: '#00D4FF' },
+    { id: 'it', label: 'IT & Technology', icon: Monitor, color: '#635BFF' }
 ];
 
-export const FunctionSection: React.FC = () => {
-    const [activeTab, setActiveTab] = useState('mydecision-studio');
-    const [zoomLevel, setZoomLevel] = useState(1);
+interface FunctionSectionProps {
+    activeDepartment?: string;
+}
 
-    const handleZoomIn = () => setZoomLevel(prev => Math.min(prev + 0.1, 1.5));
-    const handleZoomOut = () => setZoomLevel(prev => Math.max(prev - 0.1, 0.5));
+const PainPointsBox = ({ points }: { points: string[] }) => (
+    <div className="glass-panel" style={{ padding: 'var(--spacing-6)', borderLeft: '3px solid #EF4444' }}>
+        <h4 style={{ fontSize: 'var(--font-size-base)', fontWeight: 600, color: '#EF4444', marginBottom: 'var(--spacing-3)' }}>Pain Points Addressed</h4>
+        <ul className="flex-col gap-2" style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-sm)' }}>
+            {points.map((pt, i) => (
+                <li key={i} className="flex gap-2 items-start"><XOctagon size={16} className="mt-1 flex-shrink-0" /> {pt}</li>
+            ))}
+        </ul>
+    </div>
+);
+
+interface AgentCardProps {
+    title: string;
+    icon: any;
+    subtitle: string;
+    valuePoints: string[];
+    example?: string;
+    className?: string;
+}
+
+const AgentCard: React.FC<AgentCardProps> = ({ title, icon: Icon, subtitle, valuePoints, example, className = '' }) => (
+    <Card title={title} icon={Icon} subtitle={subtitle} className={className}>
+        <div className="mt-4 pt-4 border-t" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
+            <div className="text-sm font-semibold mb-2" style={{ color: '#10B981' }}>Value Creation</div>
+            <ul className="text-xs text-gray-400 space-y-1 mb-3">
+                {valuePoints.map((vp: string, i: number) => <li key={i}>• {vp}</li>)}
+            </ul>
+            {example && (
+                <>
+                    <div className="text-xs font-semibold mb-1 text-gradient-accent">Real Example</div>
+                    <p className="text-xs text-gray-300 italic">"{example}"</p>
+                </>
+            )}
+        </div>
+    </Card>
+);
+
+export const FunctionSection: React.FC<FunctionSectionProps> = ({ activeDepartment }) => {
+    const [activeTab, setActiveTab] = useState(activeDepartment || 'procurement');
 
     const renderContent = () => {
         switch (activeTab) {
-            case 'mydecision-studio':
+            case 'procurement':
                 return (
-                    <div className="flex-col gap-6 w-full">
-                        <div className="flex justify-between items-start" style={{ marginBottom: 'var(--spacing-4)' }}>
-                            <div>
-                                <Badge variant="purple" className="mb-2">Visual RETE Canvas</Badge>
-                                <h3 style={{ fontSize: 'var(--font-size-3xl)', marginBottom: 'var(--spacing-2)' }}>MyDecision Studio</h3>
-                                <p style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-lg)' }}>
-                                    Drag from palette to add. Double-click nodes to edit. Compile to bytecode.
-                                </p>
-                            </div>
-                            <div className="text-right">
-                                <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-muted)' }}>Powered By</div>
-                                <div className="text-gradient-accent" style={{ fontSize: 'var(--font-size-2xl)', fontWeight: 800 }}>React Flow</div>
-                            </div>
+                    <div className="flex-col gap-8 w-full">
+                        <div className="flex-col gap-4">
+                            <Badge variant="blue" className="mb-2">₹478.6 Cr/year value | 3 AI Agents</Badge>
+                            <h3 style={{ fontSize: 'var(--font-size-3xl)', marginBottom: 'var(--spacing-2)' }}>Procurement & Supply Chain AI Agents</h3>
+                            <p style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-lg)' }}>For CPOs, Procurement Heads, Supply Chain Managers</p>
                         </div>
-
-                        <div className="glass-panel" style={{ height: '420px', background: '#030303', border: '1px solid var(--glass-border)', borderRadius: 'var(--radius-lg)', position: 'relative', overflow: 'hidden' }}>
-                            {/* Dot Grid Background */}
-                            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundImage: 'radial-gradient(#333 1.5px, transparent 1.5px)', backgroundSize: `${20 * zoomLevel}px ${20 * zoomLevel}px`, backgroundPosition: 'center center', zIndex: 0, transition: 'background-size 0.2s' }}></div>
-
-                            {/* Scalable Container */}
-                            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', transform: `scale(${zoomLevel})`, transformOrigin: 'center center', transition: 'transform 0.2s', zIndex: 1 }}>
-                                {/* SVG Connectors */}
-                                <svg style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1, pointerEvents: 'none' }}>
-                                    {/* Trigger to Condition */}
-                                    <path className="animated-path" d="M 230 170 C 255 170, 255 170, 280 170" fill="none" stroke="#3B82F6" strokeWidth="2" strokeDasharray="5,5" />
-                                    <polygon points="275,166 280,170 275,174" fill="#3B82F6" />
-
-                                    {/* Condition YES to Action */}
-                                    <path className="animated-path" d="M 480 150 C 520 150, 520 90, 560 90" fill="none" stroke="#10B981" strokeWidth="2" strokeDasharray="5,5" />
-                                    <polygon points="555,86 560,90 555,94" fill="#10B981" />
-
-                                    {/* Condition NO to Action */}
-                                    <path className="animated-path" d="M 480 220 C 515 220, 515 280, 550 280" fill="none" stroke="#EF4444" strokeWidth="2" strokeDasharray="5,5" />
-                                    <polygon points="545,276 550,280 545,284" fill="#EF4444" />
-                                </svg>
-
-                                {/* Node 1: Trigger */}
-                                <div className="studio-node" style={{
-                                    position: 'absolute', left: '30px', top: '120px', width: '200px',
-                                    background: 'rgba(17, 24, 39, 0.8)', backdropFilter: 'blur(4px)',
-                                    border: '2px solid #10B981', borderRadius: '8px', zIndex: 2,
-                                    boxShadow: '0 0 15px rgba(16, 185, 129, 0.2)'
-                                }}>
-                                    <div style={{ padding: '8px 12px', borderBottom: '2px solid #10B981', fontSize: '11px', fontWeight: 'bold', color: '#fff', letterSpacing: '0.05em' }}>
-                                        TRIGGER <span style={{ float: 'right', color: '#10B981' }}>⚡</span>
-                                    </div>
-                                    <div style={{ padding: '12px' }}>
-                                        <div style={{ color: '#fff', fontSize: '14px', fontWeight: 500, marginBottom: '4px' }}>Invoice Ingested</div>
-                                        <div style={{ color: '#9CA3AF', fontSize: '12px', marginBottom: '8px' }}>Webhook payload</div>
-                                        <div style={{ border: '1px solid rgba(16, 185, 129, 0.4)', borderRadius: '4px', padding: '4px 8px', fontSize: '10px', color: '#10B981', background: 'rgba(16, 185, 129, 0.1)', display: 'inline-block' }}>
-                                            A2A Event Bus
-                                        </div>
-                                    </div>
-                                    <div className="pulse-handle" style={{ position: 'absolute', right: '-6px', top: '50px', width: '12px', height: '12px', background: '#10B981', borderRadius: '50%', border: '2px solid #fff' }}></div>
-                                </div>
-
-                                {/* Node 2: Condition */}
-                                <div className="studio-node" style={{
-                                    position: 'absolute', left: '280px', top: '110px', width: '200px',
-                                    background: 'rgba(17, 24, 39, 0.8)', backdropFilter: 'blur(4px)',
-                                    border: '2px solid #3B82F6', borderRadius: '8px', zIndex: 2,
-                                    boxShadow: '0 0 15px rgba(59, 130, 246, 0.2)'
-                                }}>
-                                    <div style={{ position: 'absolute', left: '-6px', top: '60px', width: '12px', height: '12px', background: '#3B82F6', borderRadius: '50%', border: '2px solid #fff' }}></div>
-
-                                    <div style={{ padding: '8px 12px', borderBottom: '2px solid #3B82F6', fontSize: '11px', fontWeight: 'bold', color: '#fff', letterSpacing: '0.05em' }}>
-                                        CONDITION <span style={{ float: 'right', color: '#3B82F6' }}>⑂</span>
-                                    </div>
-                                    <div style={{ padding: '12px' }}>
-                                        <div style={{ color: '#fff', fontSize: '14px', fontWeight: 500, marginBottom: '4px' }}>Approval Rules</div>
-                                        <div style={{ color: '#9CA3AF', fontSize: '12px', marginBottom: '8px' }}>Logic gate evaluation</div>
-                                        <div style={{ border: '1px solid #3B82F6', borderRadius: '4px', padding: '4px 8px', fontSize: '10px', color: '#fff', textAlign: 'center', background: 'rgba(59, 130, 246, 0.1)' }}>
-                                            Amount &gt; $50,000
-                                        </div>
-                                    </div>
-
-                                    <div style={{ position: 'absolute', right: '-6px', top: '40px', width: '12px', height: '12px', background: '#10B981', borderRadius: '50%', border: '2px solid #fff' }}></div>
-                                    <div style={{ position: 'absolute', right: '-24px', top: '38px', fontSize: '10px', color: '#10B981', fontWeight: 'bold' }}>YES</div>
-
-                                    <div style={{ position: 'absolute', right: '-6px', top: '110px', width: '12px', height: '12px', background: '#EF4444', borderRadius: '50%', border: '2px solid #fff' }}></div>
-                                    <div style={{ position: 'absolute', right: '-22px', top: '108px', fontSize: '10px', color: '#EF4444', fontWeight: 'bold' }}>NO</div>
-                                </div>
-
-                                {/* Node 3: Action YES */}
-                                <div className="studio-node" style={{
-                                    position: 'absolute', left: '560px', top: '30px', width: '200px',
-                                    background: 'rgba(17, 24, 39, 0.8)', backdropFilter: 'blur(4px)',
-                                    border: '2px solid #8B5CF6', borderRadius: '8px', zIndex: 2,
-                                    boxShadow: '0 0 15px rgba(139, 92, 246, 0.2)'
-                                }}>
-                                    <div style={{ position: 'absolute', left: '-6px', top: '60px', width: '12px', height: '12px', background: '#8B5CF6', borderRadius: '50%', border: '2px solid #fff' }}></div>
-                                    <div style={{ padding: '8px 12px', borderBottom: '2px solid #8B5CF6', fontSize: '11px', fontWeight: 'bold', color: '#fff', letterSpacing: '0.05em' }}>
-                                        ACTION <span style={{ float: 'right', color: '#8B5CF6' }}>⚙</span>
-                                    </div>
-                                    <div style={{ padding: '12px' }}>
-                                        <div style={{ color: '#fff', fontSize: '14px', fontWeight: 500, marginBottom: '4px' }}>Route to CFO</div>
-                                        <div style={{ color: '#9CA3AF', fontSize: '12px' }}>Human-in-the-loop intercept via Teams/Slack.</div>
-                                    </div>
-                                </div>
-
-                                {/* Node 4: Action NO */}
-                                <div className="studio-node" style={{
-                                    position: 'absolute', left: '550px', top: '220px', width: '200px',
-                                    background: 'rgba(17, 24, 39, 0.8)', backdropFilter: 'blur(4px)',
-                                    border: '2px solid #F59E0B', borderRadius: '8px', zIndex: 2,
-                                    boxShadow: '0 0 15px rgba(245, 158, 11, 0.2)'
-                                }}>
-                                    <div style={{ position: 'absolute', left: '-6px', top: '60px', width: '12px', height: '12px', background: '#F59E0B', borderRadius: '50%', border: '2px solid #fff' }}></div>
-                                    <div style={{ padding: '8px 12px', borderBottom: '2px solid #F59E0B', fontSize: '11px', fontWeight: 'bold', color: '#fff', letterSpacing: '0.05em' }}>
-                                        ACTION <span style={{ float: 'right', color: '#F59E0B' }}>→</span>
-                                    </div>
-                                    <div style={{ padding: '12px' }}>
-                                        <div style={{ color: '#fff', fontSize: '14px', fontWeight: 500, marginBottom: '4px' }}>Auto-Approve</div>
-                                        <div style={{ color: '#9CA3AF', fontSize: '12px' }}>Push to SAP S/4HANA for immediate payment run.</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* React Flow Controls Mock */}
-                            <div style={{ position: 'absolute', bottom: '15px', left: '15px', display: 'flex', gap: '5px', zIndex: 3 }}>
-                                <div onClick={handleZoomIn} style={{ width: '24px', height: '24px', background: 'rgba(255,255,255,0.1)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px', cursor: 'pointer', border: '1px solid rgba(255,255,255,0.1)' }}>+</div>
-                                <div onClick={handleZoomOut} style={{ width: '24px', height: '24px', background: 'rgba(255,255,255,0.1)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px', cursor: 'pointer', border: '1px solid rgba(255,255,255,0.1)' }}>−</div>
-                            </div>
-                            <div style={{ position: 'absolute', bottom: '15px', right: '15px', width: '80px', height: '60px', background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '4px', zIndex: 3 }}>
-                                {/* Mini-map mock */}
-                                <div style={{ position: 'absolute', top: '15px', left: '10px', width: '15px', height: '10px', background: '#10B981', borderRadius: '2px', opacity: 0.8 }}></div>
-                                <div style={{ position: 'absolute', top: '15px', left: '35px', width: '15px', height: '10px', background: '#3B82F6', borderRadius: '2px', opacity: 0.8 }}></div>
-                                <div style={{ position: 'absolute', top: '5px', left: '55px', width: '15px', height: '10px', background: '#8B5CF6', borderRadius: '2px', opacity: 0.8 }}></div>
-                                <div style={{ position: 'absolute', top: '25px', left: '55px', width: '15px', height: '10px', background: '#F59E0B', borderRadius: '2px', opacity: 0.8 }}></div>
-                            </div>
-                        </div>
-
-                        <div className="grid grid-cols-3 gap-6 mt-6">
-                            <Card title="Visual Editing" subtitle="Drag-and-drop nodes to construct business logic visually." icon={Network} />
-                            <Card title="High Performance" subtitle="Compiles directly to optimized bytecode for execution." icon={Activity} />
-                            <Card title="Extensible" subtitle="Built on React Flow with custom edge/node support." icon={Computer} />
+                        <PainPointsBox points={[
+                            'Manual PR processing (5 days → 1.5 days with AI)',
+                            'Vendor performance tracking across 500+ suppliers',
+                            '20% excess inventory (₹200 Cr locked working capital)',
+                            'Stock-out delays (8 incidents/year @ ₹1.5 Cr each)',
+                            'Invoice discrepancies (15-day reconciliation cycle)'
+                        ]} />
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <AgentCard title="PR Optimizer Agent" icon={Target} subtitle="Auto-analyzes project BOQ. Predicts material requirements using ML (trained on 66 EPC + 13 HAM projects). Flags anomalies like duplicates or spec mismatches." valuePoints={['30% faster PR processing', '₹40 Cr working capital unlocking', '₹12 Cr delay cost avoidance']} example="PNC Infratech: AI predicted 2,500 MT cement vs manual 3,200 MT for Pune Ring Road project → 22% over-ordering prevented → ₹28 L saved." />
+                            <AgentCard title="Vendor Intelligence Agent" icon={Users} subtitle="Auto-ranks 500+ vendors using 4-criteria scoring (Price, Delivery, Quality, Terms). Monitors contract compliance and scrapes GSTIN/MCA for risk scoring." valuePoints={['₹400 Cr procurement cost savings', '₹25 Cr vendor delay avoidance', '₹24 Cr early payment discounts']} example="Manufacturing client with ₹2,800 Cr annual procurement: AI identified vendor consolidation opportunity → bulk discount of 8% → ₹180 Cr savings over 3 years." />
+                            <AgentCard title="Invoice Reconciliation Agent" icon={CheckCircle2} subtitle="Auto-matches PO → GRN → Invoice (3-way match). Handles price/quantity variance checks and intelligent exception routing." valuePoints={['70% faster invoice processing', '₹5.6 Cr labor cost savings', '₹24 Cr early payment discounts', '15% dispute reduction']} example="Jubilant FoodWorks: Processes 12,000 invoices/month. AI reduced AP team from 18 to 5 people, saved ₹4.2 Cr/year in labor + ₹18 Cr in early payment discounts." className="md:col-span-2" />
                         </div>
                     </div>
                 );
-
-            case 'rag':
+            case 'finance':
                 return (
-                    <div className="flex-col gap-6 w-full">
-                        <div className="flex justify-between items-start" style={{ marginBottom: 'var(--spacing-4)' }}>
-                            <div>
-                                <Badge variant="purple" className="mb-2">Knowledge Integration</Badge>
-                                <h3 style={{ fontSize: 'var(--font-size-3xl)', marginBottom: 'var(--spacing-2)' }}>Retrieval-Augmented Generation (RAG)</h3>
-                                <p style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-lg)' }}>
-                                    Ground your autonomous agents in enterprise truth. Connect securely to vector databases, internal documents, and proprietary knowledge graphs.
-                                </p>
-                            </div>
+                    <div className="flex-col gap-8 w-full">
+                        <div className="flex-col gap-4">
+                            <Badge variant="green" className="mb-2">₹220 Cr/year value | 4 AI Agents</Badge>
+                            <h3 style={{ fontSize: 'var(--font-size-3xl)', marginBottom: 'var(--spacing-2)' }}>Finance & Accounting AI Agents</h3>
+                            <p style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-lg)' }}>For CFOs, Finance Controllers, Accounts Heads</p>
                         </div>
-                        <div className="grid grid-cols-2 gap-6">
-                            <Card
-                                title="Vector Database Sync"
-                                icon={Database}
-                                subtitle="Natively integrate with Pinecone, Milvus, and pgvector to retrieve semantic context in milliseconds before agent execution."
-                            />
-                            <Card
-                                title="Multi-modal Ingestion"
-                                icon={FileText}
-                                subtitle="Ingest and chunk PDFs, Word docs, internal wikis, and SharePoint repositories automatically into intelligent embeddings."
-                            />
-                            <Card
-                                title="Hallucination Prevention"
-                                icon={ShieldCheck}
-                                subtitle="Strict citation constraints force agents to ground all output and decisions in referenced, enterprise-verified documentation."
-                            />
-                            <Card
-                                title="Real-time Knowledge Graph"
-                                icon={Network}
-                                subtitle="Dynamically map relationships across structured and unstructured enterprise data to provide deep context to every AI workflow."
-                            />
+                        <PainPointsBox points={[
+                            'Debtor days: 114 days (industry benchmark: 90 days)',
+                            '₹185 Cr working capital locked in receivables',
+                            'Manual RA bill generation (20 man-days/month for 30 projects)',
+                            '90-day cash flow forecasting (Excel-based, error-prone)'
+                        ]} />
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <AgentCard title="Billing Accelerator Agent" icon={Activity} subtitle="Auto-generates RA Bills from DPR milestone data. API integration with NHAI payment portal for submission. Debtor days tracking with auto-follow-ups." valuePoints={['₹100 Cr working capital unlocking', '30% faster billing cycle', '₹8 Cr interest savings']} example="PNC Infratech: AI auto-generated 180 RA bills/year. Debtor days improved from 114 to 96 in 6 months → ₹65 Cr WC unlocked." />
+                            <AgentCard title="Claims Recovery Agent" icon={ShieldCheck} subtitle="Analyzes 500+ NHAI arbitration precedents. Auto-drafts claim letters with legal citations and tracks statute of limitations deadlines." valuePoints={['₹72 Cr arbitration recovery', '40% faster claim drafting', '₹5 Cr legal fee savings']} example="Infrastructure client: AI identified 12 escalation claims worth ₹45 Cr approaching statute of limitations. 9/12 approved → ₹38 Cr recovered." />
+                            <AgentCard title="Treasury Optimization Agent" icon={PieChart} subtitle="90-day rolling cash flow forecast mapping historical data via LSTM. Prescribes optimal debt-equity mix recommendations for project funding." valuePoints={['₹40 Cr treasury optimization', 'Zero liquidity crises', '50% CFO time savings']} example="FMCG client: Recommended 70% debt + 30% equity mix for Q4 expansion → saved ₹12 Cr in interest over 2 years." />
+                            <AgentCard title="Financial Close Agent" icon={CheckCircle2} subtitle="Auto-reconciles bank statements with GL. Classifies 120+ expense categories using NLP. Automates month-end accrual entries." valuePoints={['60% faster month-end close', '₹8 Cr finance team cost savings', '95% accuracy in GL coding']} />
                         </div>
                     </div>
                 );
-
-            case 'testing':
+            case 'compliance':
                 return (
-                    <div className="flex-col gap-6 w-full">
-                        <div className="flex justify-between items-start" style={{ marginBottom: 'var(--spacing-4)' }}>
-                            <div>
-                                <Badge variant="blue" className="mb-2">Zero-Risk Validation</Badge>
-                                <h3 style={{ fontSize: 'var(--font-size-3xl)', marginBottom: 'var(--spacing-2)' }}>Testing & Simulation</h3>
-                                <p style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-lg)' }}>
-                                    Validate autonomous agent logic with synthetic data before pushing to production. Guarantee 99.9% accuracy before go-live.
-                                </p>
-                            </div>
+                    <div className="flex-col gap-8 w-full">
+                        <div className="flex-col gap-4">
+                            <Badge variant="warning" className="mb-2">₹32 Cr/year value | 3 AI Agents</Badge>
+                            <h3 style={{ fontSize: 'var(--font-size-3xl)', marginBottom: 'var(--spacing-2)' }}>Compliance & Risk Management AI Agents</h3>
+                            <p style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-lg)' }}>For Compliance Heads, Legal Heads, Risk Managers</p>
                         </div>
-                        <div className="grid grid-cols-2 gap-6">
-                            <Card
-                                title="Synthetic Data Generation"
-                                icon={Activity}
-                                subtitle="Instantly generates realistic enterprise data payloads to stress-test your agent workflows under thousands of edge cases automatically without exposing PII."
-                            />
-                            <Card
-                                title="A/B Logic Testing"
-                                icon={Network}
-                                subtitle="Run parallel versions of an agent to compare decision accuracy, latency, and performance metrics. Built-in shadow mode execution protects live data."
-                            />
-                            <Card
-                                title="Automated Regression Suites"
-                                icon={ShieldCheck}
-                                subtitle="Every agent update automatically triggers full-scale regression testing against historical edge cases to ensure no backwards-breaking changes occur."
-                            />
-                            <Card
-                                title="Load & Stress Simulation"
-                                icon={Computer}
-                                subtitle="Simulate 100,000+ parallel API events hitting the agent cluster to guarantee performance SLAs during intense enterprise peak loads."
-                            />
+                        <PainPointsBox points={[
+                            'GST compliance across 20+ GSTINs (manual reconciliation errors)',
+                            'ITC utilization at 85% (vs 95% possible with AI)',
+                            'Environmental compliance tracking (PM10 monitoring, forestry)',
+                            'Labor compliance for 500+ contractors (CLRA, ESIC, EPF)'
+                        ]} />
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <AgentCard title="GST Compliance Agent" icon={FileText} subtitle="Auto-reconciles GSTR-2A vs purchase ledger. Identifies unutilized credits to optimize ITC. Handles E-way bill auto-generation." valuePoints={['₹12 Cr GST optimization', '₹8 Cr ITC unlocking', '₹1 Cr penalty avoidance']} example="Infrastructure company (22 GSTINs): AI identified ₹42 Cr unutilized ITC over 18 months via auto-reconciliation." />
+                            <AgentCard title="Environmental Compliance Agent" icon={Target} subtitle="GPS-tagged tracking of afforestation. Real-time PM10 limits monitoring via IoT sensors. Auto-generates compliance reports for MoEF&CC." valuePoints={['₹14 Cr environmental compliance value', '₹8 Cr penalty avoidance', '₹6 Cr compliance premium on orders']} example="HAM project: PM10 sensors active at 8 zones → auto-spraying when PM10 >150 μg/m³. Zero CPCB violations over 24-month project." />
+                            <AgentCard title="Labour Compliance Agent" icon={Users} subtitle="CLRA license tracking for 500+ contractors. ESIC/EPF reconciliation automation to identify contribution defaults and wage compliance." valuePoints={['₹4 Cr penalty avoidance', '₹2 Cr cost savings via reduced manual compliance tracking']} className="md:col-span-2" />
                         </div>
                     </div>
                 );
-
-            case 'deployment':
+            case 'hr':
                 return (
-                    <div className="flex-col gap-6 w-full">
-                        <div className="flex justify-between items-start" style={{ marginBottom: 'var(--spacing-4)' }}>
-                            <div>
-                                <Badge variant="green" className="mb-2">Enterprise Scale</Badge>
-                                <h3 style={{ fontSize: 'var(--font-size-3xl)', marginBottom: 'var(--spacing-2)' }}>Deployment & CI/CD</h3>
-                                <p style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-lg)' }}>
-                                    Robust, one-click deployment pipelines designed for mission-critical AI workflows running across multi-cloud environments.
-                                </p>
-                            </div>
+                    <div className="flex-col gap-8 w-full">
+                        <div className="flex-col gap-4">
+                            <Badge variant="purple" className="mb-2">₹45 Cr/year value | 2 AI Agents</Badge>
+                            <h3 style={{ fontSize: 'var(--font-size-3xl)', marginBottom: 'var(--spacing-2)' }}>HR & Administration AI Agents</h3>
+                            <p style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-lg)' }}>For CHROs, HR Heads, Admin Managers</p>
                         </div>
-                        <div className="grid grid-cols-2 gap-6">
-                            <Card
-                                title="Zero-Downtime Updates"
-                                icon={Computer}
-                                subtitle="Deploy updated agent logic and new knowledge bases without interrupting ongoing automated processes. Uses blue/green deployment natively."
-                            />
-                            <Card
-                                title="Version Control & Rollback"
-                                icon={FileText}
-                                subtitle="Maintain a complete, auditable history of all agent configurations. Instant one-click rollback capabilities if anomalies are detected within 5 minutes."
-                            />
-                            <Card
-                                title="Multi-Cloud Native Config"
-                                icon={Network}
-                                subtitle="Deploy agents directly to AWS Mumbai, Azure India Central, or GCP seamlessly using containerized Docker/Kubernetes architecture."
-                            />
-                            <Card
-                                title="Automated Approval Gates"
-                                icon={ShieldCheck}
-                                subtitle="Define specific C-suite or IT management approval gateways that must be passed before a new agent iteration hits the production environment."
-                            />
+                        <PainPointsBox points={[
+                            'Employee onboarding (15-day process, 40% incomplete documentation)',
+                            'Payroll errors (2-3% error rate, ₹8 L rework/month)',
+                            'Leave management (manual Excel tracking, 200+ emails/month)',
+                            'Employee queries (HR team spends 40% time answering repetitive questions)'
+                        ]} />
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <AgentCard title="Employee Lifecycle Agent" icon={Users} subtitle="Automates onboarding generation, leave deduction calculations (LOP), background verifications via third-party APIs, and final settlement calculations." valuePoints={['₹25 Cr HR efficiency value', '₹12 Cr payroll accuracy', '₹15 Cr attrition reduction via predictive exit alerts']} example="Manufacturing company: Onboarded 1,200 employees. HR ops team reduced 35 → 12 FTE. Real-time predictive analytics saved 45 at-risk employees." />
+                            <AgentCard title="HR Chatbot & Self-Service Agent" icon={CheckCircle2} subtitle="24/7 conversational bot handling 200+ policy queries. Integrates into MS Teams / WhatsApp for instant leave application processing and tax computation." valuePoints={['₹5 Cr HR service desk cost savings', '80% query resolution via chatbot', '<2 min avg response time']} example="IT company (4,500 employees): Chatbot handles 18,000 queries/month. HR desk 15 → 4 people. Employee NPS 45 → 78." />
                         </div>
                     </div>
                 );
-
-            case 'integration':
+            case 'operations':
                 return (
-                    <div className="flex-col gap-6 w-full">
-                        <div className="flex justify-between items-start" style={{ marginBottom: 'var(--spacing-4)' }}>
-                            <div>
-                                <Badge variant="warning" className="mb-2">Seamless Connectivity</Badge>
-                                <h3 style={{ fontSize: 'var(--font-size-3xl)', marginBottom: 'var(--spacing-2)' }}>Enterprise Integration</h3>
-                                <p style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-lg)' }}>
-                                    Connect AI agents to your existing tech stack without tearing and replacing. 150+ native REST/SOAP integrations.
-                                </p>
-                            </div>
+                    <div className="flex-col gap-8 w-full">
+                        <div className="flex-col gap-4">
+                            <Badge variant="blue" className="mb-2">₹112 Cr/year value | 3 AI Agents</Badge>
+                            <h3 style={{ fontSize: 'var(--font-size-3xl)', marginBottom: 'var(--spacing-2)' }}>Operations & Project Management AI Agents</h3>
+                            <p style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-lg)' }}>For COOs, Project Managers, Operations Heads</p>
                         </div>
-                        <div className="grid grid-cols-2 gap-6">
-                            <Card
-                                title="Pre-built Connectors"
-                                icon={Cog}
-                                subtitle="Out-of-the-box native integration for SAP S/4HANA, Oracle ERP, Salesforce, Workday, ServiceNow, and Microsoft Dynamics."
-                            />
-                            <Card
-                                title="Custom API Gateway"
-                                icon={Network}
-                                subtitle="Secure REST/GraphQL endpoints allowing agents to interface naturally with specialized legacy systems, mainframes, and proprietary databases."
-                            />
-                            <Card
-                                title="Event-Driven Webhooks"
-                                icon={Activity}
-                                subtitle="Trigger agent workflows instantly based on real-time external events, such as an email arriving in Outlook or a Jira ticket state change."
-                            />
-                            <Card
-                                title="Data Normalization Layer"
-                                icon={FileText}
-                                subtitle="Automatically clean and structure incoming unstructured data (PDFs, images, emails) before the agent processes logic."
-                            />
+                        <PainPointsBox points={[
+                            'Real-time project visibility (DPRs analyzed manually, 2-day lag)',
+                            'Equipment downtime (5% fleet idle due to unplanned failures)',
+                            'Quality defects discovered late (costly rework, client penalties)'
+                        ]} />
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <AgentCard title="Project Pulse Agent" icon={Activity} subtitle="Real-time DPR ingestion via OCR and predictive delay alerts based on Random Forest ML trained on historical milestones." valuePoints={['₹51 Cr project execution value', '₹31 Cr early completion bonuses', '₹20 Cr delay avoidance']} example="PNC Infratech: Hardoi Bypass completed 168 days early → ₹19 Cr bonus. AI tracked critical path bottlenecks 45 days in advance." />
+                            <AgentCard title="Predictive Maintenance Agent" icon={Cog} subtitle="IoT sensor integration tracking vibration anomalies and bearing wear. Auto-scheduling for preventive service downtime." valuePoints={['₹35 Cr fleet optimization value', '₹15 Cr unplanned downtime reduction', '20% utilization improvement']} example="Construction company: AI predicted hydraulic failure on Excavator #E-247 → replaced during weekend → avoided 5-day delay." />
+                            <AgentCard title="Defect Detection Agent" icon={Target} subtitle="Computer vision passing over drone footage and assessing lab test reports (OCR) for concrete/bitumen defect classifications." valuePoints={['₹26 Cr quality value', '95% defect detection rate', '₹10 Cr penalty avoidance']} className="md:col-span-2" />
                         </div>
                     </div>
                 );
-
-            case 'connectors':
+            case 'sales':
                 return (
-                    <div className="flex-col gap-6 w-full">
-                        <div className="flex justify-between items-start" style={{ marginBottom: 'var(--spacing-4)' }}>
-                            <div>
-                                <Badge variant="warning" className="mb-2">150+ Native Integrations</Badge>
-                                <h3 style={{ fontSize: 'var(--font-size-3xl)', marginBottom: 'var(--spacing-2)' }}>Integrations & Connectors</h3>
-                                <p style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-lg)', maxWidth: '700px' }}>
-                                    Plug and play your autonomous agents directly into your existing enterprise tech stack. Integration with <strong>any Source or Destination application</strong> is possible with zero middleware required.
-                                </p>
-                            </div>
+                    <div className="flex-col gap-8 w-full">
+                        <div className="flex-col gap-4">
+                            <Badge variant="blue" className="mb-2">₹207.5 Cr/year value | 3 AI Agents</Badge>
+                            <h3 style={{ fontSize: 'var(--font-size-3xl)', marginBottom: 'var(--spacing-2)' }}>Sales & Business Development AI Agents</h3>
+                            <p style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-lg)' }}>For CROs, Sales Heads, Bid Managers</p>
                         </div>
-
-                        <div className="glass-panel" style={{ padding: 'var(--spacing-6)' }}>
-                            <div className="grid md:grid-cols-3 gap-6">
-                                {/* ERP & Finance */}
-                                <div>
-                                    <h4 style={{ color: '#fff', fontSize: '1.1rem', fontWeight: 600, marginBottom: 'var(--spacing-4)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                        <Database size={18} color="#10B981" /> ERP & Finance
-                                    </h4>
-                                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, color: '#9CA3AF', gap: '8px', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', fontSize: '0.9rem' }}>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981', flexShrink: 0 }}></div>SAP S/4HANA & ECC</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981', flexShrink: 0 }}></div>Oracle NetSuite</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981', flexShrink: 0 }}></div>Oracle Cloud ERP</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981', flexShrink: 0 }}></div>Microsoft Dynamics 365 Finance</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981', flexShrink: 0 }}></div>Workday Financial Management</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981', flexShrink: 0 }}></div>Coupa Business Spend Management</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981', flexShrink: 0 }}></div>SAP Ariba & Fieldglass</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981', flexShrink: 0 }}></div>Sage Intacct</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981', flexShrink: 0 }}></div>Epicor ERP</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981', flexShrink: 0 }}></div>Infor CloudSuite</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981', flexShrink: 0 }}></div>Intuit QuickBooks Enterprise</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981', flexShrink: 0 }}></div>Xero Accounting</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981', flexShrink: 0 }}></div>Stripe Billing & Payments</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981', flexShrink: 0 }}></div>Zuora Subscription Management</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981', flexShrink: 0 }}></div>Expensify & Concur</li>
-                                    </ul>
-                                </div>
-
-                                {/* CRM & Service */}
-                                <div>
-                                    <h4 style={{ color: '#fff', fontSize: '1.1rem', fontWeight: 600, marginBottom: 'var(--spacing-4)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                        <Users size={18} color="#3B82F6" /> CRM & Service
-                                    </h4>
-                                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, color: '#9CA3AF', gap: '8px', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', fontSize: '0.9rem' }}>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#3B82F6', flexShrink: 0 }}></div>Salesforce Sales/Service Cloud</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#3B82F6', flexShrink: 0 }}></div>Salesforce Marketing Cloud</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#3B82F6', flexShrink: 0 }}></div>ServiceNow ITSM & CSM</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#3B82F6', flexShrink: 0 }}></div>HubSpot CRM Platform</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#3B82F6', flexShrink: 0 }}></div>Zendesk Support Suite</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#3B82F6', flexShrink: 0 }}></div>Jira Service Management</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#3B82F6', flexShrink: 0 }}></div>Microsoft Dynamics 365 Sales</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#3B82F6', flexShrink: 0 }}></div>SAP Customer Experience (CX)</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#3B82F6', flexShrink: 0 }}></div>Workday HCM & HR Service</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#3B82F6', flexShrink: 0 }}></div>Intercom Customer Communications</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#3B82F6', flexShrink: 0 }}></div>Freshworks (Freshdesk/Freshservice)</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#3B82F6', flexShrink: 0 }}></div>Adobe Experience Cloud</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#3B82F6', flexShrink: 0 }}></div>Pipedrive CRM</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#3B82F6', flexShrink: 0 }}></div>Marketo Engage & Pardot</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#3B82F6', flexShrink: 0 }}></div>Qualtrics XM & SurveyMonkey Enterprise</li>
-                                    </ul>
-                                </div>
-
-                                {/* Data & Cloud */}
-                                <div>
-                                    <h4 style={{ color: '#fff', fontSize: '1.1rem', fontWeight: 600, marginBottom: 'var(--spacing-4)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                        <Network size={18} color="#8B5CF6" /> Data & Cloud
-                                    </h4>
-                                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, color: '#9CA3AF', gap: '8px', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', fontSize: '0.9rem' }}>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#8B5CF6', flexShrink: 0 }}></div>Snowflake Data Cloud</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#8B5CF6', flexShrink: 0 }}></div>Databricks Lakehouse Platform</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#8B5CF6', flexShrink: 0 }}></div>Amazon Web Services (S3, Redshift)</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#8B5CF6', flexShrink: 0 }}></div>Google Cloud Platform (BigQuery)</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#8B5CF6', flexShrink: 0 }}></div>Microsoft Azure (Data Factory, Synapse)</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#8B5CF6', flexShrink: 0 }}></div>Pinecone & Milvus (Vector DBs)</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#8B5CF6', flexShrink: 0 }}></div>PostgreSQL / MySQL / Oracle DB</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#8B5CF6', flexShrink: 0 }}></div>MongoDB & Neo4j</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#8B5CF6', flexShrink: 0 }}></div>Confluent Kafka Event Streaming</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#8B5CF6', flexShrink: 0 }}></div>MuleSoft Anypoint Platform</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#8B5CF6', flexShrink: 0 }}></div>Boomi Enterprise Integration</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#8B5CF6', flexShrink: 0 }}></div>Workato & Zapier Enterprise</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#8B5CF6', flexShrink: 0 }}></div>Splunk & Datadog Observability</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#8B5CF6', flexShrink: 0 }}></div>GitHub, GitLab, & Bitbucket</li>
-                                        <li className="flex items-center gap-2" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#8B5CF6', flexShrink: 0 }}></div>Slack & Microsoft Teams</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div style={{ marginTop: 'var(--spacing-8)', padding: 'var(--spacing-4)', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <div className="flex items-center gap-3">
-                                    <Plug className="text-gray-400" />
-                                    <span style={{ color: '#9CA3AF', fontSize: '0.9rem' }}>Plus universal support for Custom REST API, GraphQL, Webhooks, and SOAP XML out-of-the-box.</span>
-                                </div>
-                            </div>
+                        <PainPointsBox points={[
+                            'Tender discovery (miss 30% opportunities, manual checks)',
+                            'Bid preparation (15 days/tender, labor-intensive BOQ extraction)',
+                            'Bid pricing (conservative/aggressive estimates leave money on the table)'
+                        ]} />
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <AgentCard title="Tender Scout Agent" icon={Target} subtitle="Auto-scrapes 50+ portals (NHAI, PWD, GeM). Bid-No-Bid scoring based on 12 criteria (order book capacity, region, equipment available)." valuePoints={['₹7.5 Cr bid efficiency value', '100% tender coverage', '50% faster bid decision']} example="Won 18 tenders (40% win rate vs 28%) worth ₹4,200 Cr. AI detected ₹850 Cr NH-48 tender 11:47 PM Friday." />
+                            <AgentCard title="BOQ Builder Agent" icon={CheckCircle2} subtitle="Computer Vision extracts quantities from PDF drawings (e.g. 127-page tender). Auto-calculates material requirements dynamically." valuePoints={['₹120 Cr BOQ accuracy value', '₹40 Cr overrun avoidance']} example="₹850 Cr NH-48 tender: AI extracted quantities from 127-page drawing in 4 hrs (vs 12 days). Suggested precast value engineering → won tender." />
+                            <AgentCard title="Bid Risk Analyzer Agent" icon={TrendingUp} subtitle="Monte Carlo simulations (10,000 iterations) considering margin analysis, historical competitor intelligence, and risk premiums." valuePoints={['₹80 Cr bid optimization value', '₹50 Cr PAT from incremental wins']} className="md:col-span-2" />
                         </div>
                     </div>
                 );
-
-            case 'security':
+            case 'it':
                 return (
-                    <div className="flex-col gap-6 w-full">
-                        <div className="flex justify-between items-start" style={{ marginBottom: 'var(--spacing-4)' }}>
-                            <div>
-                                <Badge variant="purple" className="mb-2">Bank-Grade Compliance</Badge>
-                                <h3 style={{ fontSize: 'var(--font-size-3xl)', marginBottom: 'var(--spacing-2)' }}>Security & Governance</h3>
-                                <p style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-lg)' }}>
-                                    Strict guardrails ensuring sovereign control over all autonomous operations. SOC2 Type II and ISO 27001 certified.
-                                </p>
-                            </div>
+                    <div className="flex-col gap-8 w-full">
+                        <div className="flex-col gap-4">
+                            <Badge variant="purple" className="mb-2">₹35 Cr/year value | 2 AI Agents</Badge>
+                            <h3 style={{ fontSize: 'var(--font-size-3xl)', marginBottom: 'var(--spacing-2)' }}>IT & Technology AI Agents</h3>
+                            <p style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-lg)' }}>For CIOs, IT Heads, Technology Leaders</p>
                         </div>
-                        <div className="grid grid-cols-2 gap-6">
-                            <Card
-                                title="Role-Based Access (RBAC)"
-                                icon={Users}
-                                subtitle="Define granular permissions dictating exactly who can view, edit, test, or publish specific agent workflows across the organization."
-                            />
-                            <Card
-                                title="Immutable Audit Trails"
-                                icon={ShieldCheck}
-                                subtitle="Cryptographically secure logs of every decision made and action taken by an AI agent, ensuring full traceability for compliance officers."
-                            />
-                            <Card
-                                title="Human-in-the-Loop Intercepts"
-                                icon={Activity}
-                                subtitle="Force agents to pause and request human authorization for transactions exceeding dynamic risk thresholds (e.g. transfers over $50k)."
-                            />
-                            <Card
-                                title="Data Sovereignty & KMS"
-                                icon={Computer}
-                                subtitle="Bring your own Key Management Service (AWS KMS / Azure Key Vault). 100% data processing remains localized to your geographical requirements."
-                            />
+                        <PainPointsBox points={[
+                            'SAP maintenance (manual master data updates, 2-day lag)',
+                            'System integration failures (API errors, data sync issues)',
+                            'IT service desk load (40% repetitive queries: password resets)'
+                        ]} />
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <AgentCard title="SAP & ERP Automation Agent" icon={Monitor} subtitle="Master Data Management auto-updates vendor masters. Transaction Automation for PO creation, GRNs, and Journal entries via SAP RFC." valuePoints={['₹25 Cr SAP efficiency value', '₹15 Cr IT ops cost savings', '70% faster transaction processing']} example="Manufacturing company (₹6,800 Cr): Auto-created 18,000 POs/year. Finance close 15 days → 7 days." />
+                            <AgentCard title="IT Service Desk Agent" icon={CheckCircle2} subtitle="Chatbot for password resets, VPN troubleshooting, and automated ticket classification (P1/P2) inside ServiceNow." valuePoints={['₹10 Cr IT service desk value', '85% ticket auto-resolution', 'Avg resolution time: 24 hrs → 2 hrs']} example="IT company (4,500 employees): Chatbot handles 22,000 tickets/month. IT service desk reduced from 18 to 6 people." />
                         </div>
                     </div>
                 );
-
-            case 'analytics':
-                return (
-                    <div className="flex-col gap-6 w-full">
-                        <div className="flex justify-between items-start" style={{ marginBottom: 'var(--spacing-4)' }}>
-                            <div>
-                                <Badge variant="blue" className="mb-2">Executive Telemetry</Badge>
-                                <h3 style={{ fontSize: 'var(--font-size-3xl)', marginBottom: 'var(--spacing-2)' }}>Analytics & Insights</h3>
-                                <p style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-lg)' }}>
-                                    Total operational transparency across 100% of autonomous business activities.
-                                </p>
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-2 gap-6">
-                            <Card
-                                title="Real-Time ROI Dashboards"
-                                icon={Activity}
-                                subtitle="Live tracking of working capital unlocked, hours saved, and exact dollar value generated by each individual AI agent in production."
-                            />
-                            <Card
-                                title="Anomaly Detection Algorithms"
-                                icon={ShieldCheck}
-                                subtitle="Automatically highlights systemic deviations in vendor pricing or payment timings that human teams would statistically miss."
-                            />
-                            <Card
-                                title="Agent Bottleneck Analysis"
-                                icon={Network}
-                                subtitle="Visual heatmaps of your RETE workflows to identify exactly which external API or database is currently slowing down operation time."
-                            />
-                            <Card
-                                title="Custom Exec Reports"
-                                icon={FileText}
-                                subtitle="Auto-generated monthly PDF breakdowns sent directly to the C-suite detailing cross-departmental automation saturation metrics."
-                            />
-                        </div>
-                    </div>
-                );
-
-            case 'more':
-                return (
-                    <div className="flex-col gap-6 w-full">
-                        <div className="flex justify-between items-start" style={{ marginBottom: 'var(--spacing-4)' }}>
-                            <div>
-                                <Badge variant="blue" className="mb-2">Advanced Capabilities</Badge>
-                                <h3 style={{ fontSize: 'var(--font-size-3xl)', marginBottom: 'var(--spacing-2)' }}>More Platform Features</h3>
-                                <p style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-lg)' }}>
-                                    Explore the full breadth of our autonomous AI toolset designed for specialized enterprise requirements.
-                                </p>
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-2 gap-6">
-                            <Card
-                                title="Autonomous Automation"
-                                icon={Cog}
-                                subtitle="Beyond traditional RPA. Intelligent workflows that adapt to UI changes, handle exceptions dynamically, and learn from human intervention."
-                            />
-                            <Card
-                                title="Templateless Data Extraction"
-                                icon={Database}
-                                subtitle="Extract structured JSON data from highly unstructured documents (invoices, contracts, emails) without predefined OCR templates."
-                            />
-                            <Card
-                                title="Multi-modal Document Intelligence"
-                                icon={FileText}
-                                subtitle="Process text, images, and tables simultaneously. Cross-reference extracted data against live ERP records instantly."
-                            />
-                            <Card
-                                title="Event-Driven Orchestration"
-                                icon={Network}
-                                subtitle="Trigger complex AI agent activities based on webhooks, database state changes, or even inbound email attachments."
-                            />
-                        </div>
-                    </div>
-                );
-
             default:
-                return (
-                    <div className="flex items-center justify-center p-12 glass-panel" style={{ minHeight: '400px' }}>
-                        <p style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-lg)' }}>
-                            Comprehensive Agent documentation loading for {functionTabs.find(t => t.id === activeTab)?.label}...
-                        </p>
-                    </div>
-                );
+                return null;
         }
     };
 
@@ -543,12 +217,12 @@ export const FunctionSection: React.FC = () => {
         <section id="functions" style={{ padding: 'var(--spacing-16) 0', position: 'relative' }}>
             <div className="container">
                 <div className="flex-col items-center justify-center text-center mb-12" style={{ marginBottom: 'var(--spacing-12)' }}>
-                    <Badge variant="blue" className="mb-4" style={{ marginBottom: 'var(--spacing-4)' }}>Platform Capabilities</Badge>
+                    <Badge variant="blue" className="mb-4" style={{ marginBottom: 'var(--spacing-4)' }}>Function-Wise Showcase</Badge>
                     <h2 style={{ fontSize: 'var(--font-size-4xl)', marginBottom: 'var(--spacing-4)' }}>
-                        End-to-End Autonomous AI
+                        AI Agents for 7 Enterprise Functions
                     </h2>
                     <p style={{ fontSize: 'var(--font-size-lg)', color: 'var(--color-text-muted)', maxWidth: '800px', margin: '0 auto' }}>
-                        From visual agent design in MyDecision Studio to rigorous simulation, enterprise deployment, and strict security governance, explore everything SequelString AI offers.
+                        Specialized autonomous agents targeting specific workflows inside Procurement, Finance, Operations, IT, and more.
                     </p>
                 </div>
 
