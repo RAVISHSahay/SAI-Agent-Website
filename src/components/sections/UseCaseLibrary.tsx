@@ -119,7 +119,7 @@ export const UseCaseLibrary: React.FC<UseCaseLibraryProps> = ({ initialDepartmen
 
                 <div className="flex-col items-center justify-center text-center mb-12">
                     <Badge variant="purple" className="mb-4">Enterprise Agent Directory</Badge>
-                    <div style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', marginBottom: 'var(--spacing-4)', fontFamily: 'var(--font-head)', fontWeight: 700, color: 'var(--color-text)' }}>
+                    <div style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', marginBottom: 'var(--spacing-4)', fontFamily: 'var(--font-heading)', fontWeight: 700, color: 'var(--color-text)' }}>
                         600+ AI <span className="text-gradient">Agent Use Cases</span>
                     </div>
                     <p style={{ fontSize: 'var(--font-size-lg)', color: 'var(--color-text-muted)', maxWidth: '800px', margin: '0 auto' }}>
@@ -295,7 +295,7 @@ export const UseCaseLibrary: React.FC<UseCaseLibraryProps> = ({ initialDepartmen
                                     <div style={{ padding: 'var(--spacing-6)', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 'var(--spacing-4)' }}>
                                             <Badge variant={viewMode === 'industry' ? 'green' : 'blue'}>{uc.id}</Badge>
-                                            <span style={{ fontSize: '11px', color: viewMode === 'industry' ? '#10B981' : 'var(--color-secondary)', fontFamily: 'monospace', background: viewMode === 'industry' ? 'rgba(16,185,129,0.1)' : 'rgba(0,212,255,0.1)', padding: '2px 8px', borderRadius: '4px', textAlign: 'right', maxWidth: '70%' }}>
+                                            <span style={{ fontSize: '11px', color: viewMode === 'industry' ? '#10B981' : 'var(--color-secondary)', fontFamily: 'var(--font-mono)', background: viewMode === 'industry' ? 'rgba(16,185,129,0.1)' : 'rgba(0,212,255,0.1)', padding: '2px 8px', borderRadius: '4px', textAlign: 'right', maxWidth: '70%' }}>
                                                 {viewMode === 'industry' ? (
                                                     <>{uc.industryGroup} • {uc.industry}</>
                                                 ) : (
@@ -378,7 +378,7 @@ export const UseCaseLibrary: React.FC<UseCaseLibraryProps> = ({ initialDepartmen
                                                     <div style={{ padding: 'var(--spacing-6)', background: 'rgba(0,0,0,0.4)' }}>
                                                         {uc.flow && uc.flow.length > 0 ? (
                                                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)' }}>
-                                                                <div style={{ fontSize: '11px', fontFamily: 'monospace', color: 'var(--color-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 'var(--spacing-4)' }}>Agent Execution Flow</div>
+                                                                <div style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: 'var(--color-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 'var(--spacing-4)' }}>Agent Execution Flow</div>
                                                                 <div style={{ position: 'relative', paddingLeft: '24px', borderLeft: '1px solid var(--glass-border)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
                                                                     {uc.flow.map((step, idx) => (
                                                                         <div key={idx} style={{ position: 'relative' }}>

@@ -56,19 +56,19 @@ export const DashboardSection: React.FC<DashboardSectionProps> = ({ onOpenDemo }
                                 >
                                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 'var(--spacing-8)', textAlign: 'center', background: 'rgba(255,255,255,0.02)', padding: 'var(--spacing-12)', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.05)' }}>
                                         <div>
-                                            <div style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 800, color: '#00D4FF', fontFamily: 'monospace', lineHeight: 1, marginBottom: 'var(--spacing-3)' }}>412%</div>
+                                            <div style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 800, color: '#00D4FF', fontFamily: 'var(--font-mono)', lineHeight: 1, marginBottom: 'var(--spacing-3)' }}>412%</div>
                                             <div style={{ color: '#9CA3AF', fontSize: 'var(--font-size-sm)', fontWeight: 500, letterSpacing: '0.02em', textTransform: 'uppercase' }}>3-Year ROI</div>
                                         </div>
                                         <div>
-                                            <div style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 800, color: '#00D4FF', fontFamily: 'monospace', lineHeight: 1, marginBottom: 'var(--spacing-3)' }}>$2.4M+</div>
+                                            <div style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 800, color: '#00D4FF', fontFamily: 'var(--font-mono)', lineHeight: 1, marginBottom: 'var(--spacing-3)' }}>$2.4M+</div>
                                             <div style={{ color: '#9CA3AF', fontSize: 'var(--font-size-sm)', fontWeight: 500, letterSpacing: '0.02em', textTransform: 'uppercase' }}>Annual Value</div>
                                         </div>
                                         <div>
-                                            <div style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 800, color: '#00D4FF', fontFamily: 'monospace', lineHeight: 1, marginBottom: 'var(--spacing-3)' }}>600+</div>
+                                            <div style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 800, color: '#00D4FF', fontFamily: 'var(--font-mono)', lineHeight: 1, marginBottom: 'var(--spacing-3)' }}>600+</div>
                                             <div style={{ color: '#9CA3AF', fontSize: 'var(--font-size-sm)', fontWeight: 500, letterSpacing: '0.02em', textTransform: 'uppercase' }}>AI Agents</div>
                                         </div>
                                         <div>
-                                            <div style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 800, color: '#00D4FF', fontFamily: 'monospace', lineHeight: 1, marginBottom: 'var(--spacing-3)' }}>&lt;5 <span style={{ fontSize: '60%' }}>Mo</span></div>
+                                            <div style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 800, color: '#00D4FF', fontFamily: 'var(--font-mono)', lineHeight: 1, marginBottom: 'var(--spacing-3)' }}>&lt;5 <span style={{ fontSize: '60%' }}>Mo</span></div>
                                             <div style={{ color: '#9CA3AF', fontSize: 'var(--font-size-sm)', fontWeight: 500, letterSpacing: '0.02em', textTransform: 'uppercase' }}>Payback Period</div>
                                         </div>
                                     </div>

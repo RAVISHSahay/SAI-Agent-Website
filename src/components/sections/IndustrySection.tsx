@@ -82,7 +82,7 @@ export const IndustrySection: React.FC = () => {
                                     opacity: 0.1,
                                     fontSize: '3rem',
                                     fontWeight: 900,
-                                    fontFamily: 'monospace',
+                                    fontFamily: 'var(--font-mono)',
                                     lineHeight: 0,
                                     marginRight: '-10px'
                                 }}>
@@ -105,7 +105,7 @@ export const IndustrySection: React.FC = () => {
                                             color: '#FFB000',
                                             fontSize: 'clamp(1.5rem, 3vw, 2rem)',
                                             fontWeight: 800,
-                                            fontFamily: 'monospace',
+                                            fontFamily: 'var(--font-mono)',
                                             letterSpacing: '-1px',
                                             lineHeight: 1,
                                             marginBottom: '8px'

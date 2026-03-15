@@ -103,7 +103,7 @@ export const SuccessStoriesSection: React.FC = () => {
                     <div className="grid md:grid-cols-4 gap-8 divide-x divide-gray-800">
                         {stats.map((stat, idx) => (
                             <div key={idx} className="flex-col items-center justify-center p-4">
-                                <div style={{ fontSize: '2.5rem', fontWeight: 800, color: '#fff', fontFamily: 'monospace', marginBottom: '8px' }}>
+                                <div style={{ fontSize: '2.5rem', fontWeight: 800, color: '#fff', fontFamily: 'var(--font-mono)', marginBottom: '8px' }}>
                                     {stat.value}
                                 </div>
                                 <div style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 600 }}>
@@ -125,10 +125,20 @@ export const SuccessStoriesSection: React.FC = () => {
                 </div>
 
                 {/* Client Logo Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-24">
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-10 mb-32 items-center justify-center opacity-80 mix-blend-screen px-4 md:px-12">
                     {logos.map((logo, idx) => (
-                        <div key={idx} className="glass-panel flex items-center justify-center" style={{ height: '100px', padding: 'var(--spacing-4)', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', filter: 'grayscale(100%)', transition: 'all 0.3s ease', cursor: 'pointer' }} onMouseEnter={(e) => { e.currentTarget.style.filter = 'grayscale(0%)'; e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }} onMouseLeave={(e) => { e.currentTarget.style.filter = 'grayscale(100%)'; e.currentTarget.style.background = 'rgba(255,255,255,0.02)'; }}>
-                            <span style={{ fontWeight: 700, fontSize: '1.1rem', color: '#fff', opacity: 0.8 }}>{logo}</span>
+                        <div key={idx} className="flex items-center justify-center text-center group cursor-default" style={{ height: '80px', transition: 'all 0.4s ease' }}>
+                            <span className="text-gray-400 group-hover:text-white transition-colors duration-300" style={{ 
+                                fontWeight: 700, 
+                                fontSize: '0.95rem', 
+                                textTransform: 'uppercase', 
+                                letterSpacing: '2px', 
+                                fontFamily: 'var(--font-heading)',
+                                lineHeight: '1.4',
+                                display: 'inline-block'
+                            }}>
+                                {logo}
+                            </span>
                         </div>
                     ))}
                 </div>
@@ -178,7 +188,7 @@ export const SuccessStoriesSection: React.FC = () => {
                 <div className="flex-col items-center justify-center text-center mb-16">
                     <Badge variant="green" className="mb-4">Seamless Integration</Badge>
                     <h2 style={{ fontSize: 'var(--font-size-4xl)', marginBottom: 'var(--spacing-4)' }}>
-                        The 5-Step Deployment Framework
+                        Step-Wise Delivery Framework
                     </h2>
                     <p style={{ fontSize: 'var(--font-size-lg)', color: 'var(--color-text-muted)', maxWidth: '800px', margin: '0 auto' }}>
                         Enterprise-grade AI deployed securely in Production in just 7 weeks, with zero disruption to your existing IT operations.
@@ -186,8 +196,6 @@ export const SuccessStoriesSection: React.FC = () => {
                 </div>
 
                 <div className="relative" style={{ padding: 'var(--spacing-8) 0' }}>
-                    {/* Connecting Line */}
-                    <div className="hidden md:block absolute top-[50%] left-[10%] right-[10%] h-1 bg-gradient-to-r from-[#00D4FF] via-[#10B981] to-[#8B5CF6]" style={{ zIndex: 0, opacity: 0.3 }} />
 
                     <div className="grid md:grid-cols-5 gap-6 relative z-10">
                         {deploymentSteps.map((step, idx) => (
@@ -197,19 +205,19 @@ export const SuccessStoriesSection: React.FC = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: idx * 0.1 }}
-                                className="glass-panel flex-col items-center text-center"
-                                style={{ padding: 'var(--spacing-6)', background: 'rgba(5, 12, 25, 0.9)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.05)' }}
+                                className="glass-panel flex-col"
+                                style={{ padding: 'var(--spacing-6)', background: 'rgba(5, 12, 25, 0.9)', border: '1px solid rgba(255,255,255,0.05)', height: '100%', minHeight: '320px', justifyContent: 'flex-start' }}
                             >
-                                <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 'var(--spacing-4)', color: '#fff' }}>
-                                    <step.icon size={24} />
+                                <div style={{ width: '50px', height: '50px', borderRadius: '50%', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 'var(--spacing-6)', color: '#fff' }}>
+                                    <step.icon size={20} />
                                 </div>
-                                <div style={{ color: '#00D4FF', fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>
+                                <div style={{ color: '#00D4FF', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>
                                     {step.duration}
                                 </div>
-                                <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: '#fff', marginBottom: '12px' }}>
+                                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#fff', marginBottom: '16px', lineHeight: 1.3 }}>
                                     {step.title}
                                 </h3>
-                                <p style={{ fontSize: '0.85rem', color: '#9CA3AF', lineHeight: 1.5 }}>
+                                <p style={{ fontSize: '0.9rem', color: '#8E9BAE', lineHeight: 1.6 }}>
                                     {step.desc}
                                 </p>
                             </motion.div>

@@ -87,7 +87,7 @@ export const RoiSection: React.FC = () => {
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                         marginBottom: 'var(--spacing-3)',
-                        fontFamily: 'monospace'
+                        fontFamily: 'var(--font-mono)'
                     }}>
                         42,567% ROI
                     </div>
@@ -99,7 +99,7 @@ export const RoiSection: React.FC = () => {
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px', maxWidth: '1100px', margin: '0 auto' }}>
                         {/* Card 1 */}
                         <div className="glass-panel" style={{ padding: 'var(--spacing-6)' }}>
-                            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#00D4FF', fontFamily: 'monospace', marginBottom: 'var(--spacing-2)' }}>
+                            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#00D4FF', fontFamily: 'var(--font-mono)', marginBottom: 'var(--spacing-2)' }}>
                                 $450k
                             </div>
                             <div style={{ color: '#9CA3AF', fontSize: 'var(--font-size-sm)', fontWeight: 500 }}>Year 1 Investment</div>
@@ -107,7 +107,7 @@ export const RoiSection: React.FC = () => {
 
                         {/* Card 2 */}
                         <div className="glass-panel" style={{ padding: 'var(--spacing-6)' }}>
-                            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#00D4FF', fontFamily: 'monospace', marginBottom: 'var(--spacing-2)' }}>
+                            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#00D4FF', fontFamily: 'var(--font-mono)', marginBottom: 'var(--spacing-2)' }}>
                                 $120k
                             </div>
                             <div style={{ color: '#9CA3AF', fontSize: 'var(--font-size-sm)', fontWeight: 500 }}>Annual Recurring Cost</div>
@@ -115,7 +115,7 @@ export const RoiSection: React.FC = () => {
 
                         {/* Card 3 */}
                         <div className="glass-panel" style={{ padding: 'var(--spacing-6)' }}>
-                            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#10B981', fontFamily: 'monospace', marginBottom: 'var(--spacing-2)' }}>
+                            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#10B981', fontFamily: 'var(--font-mono)', marginBottom: 'var(--spacing-2)' }}>
                                 $150M
                             </div>
                             <div style={{ color: '#9CA3AF', fontSize: 'var(--font-size-sm)', fontWeight: 500 }}>Annual Value Generated</div>
@@ -150,7 +150,7 @@ export const RoiSection: React.FC = () => {
                                 <tr key={idx} style={{ borderBottom: '1px solid rgba(255,255,255,0.02)', background: idx % 2 === 0 ? 'transparent' : 'rgba(0, 212, 255, 0.02)' }}>
                                     <td style={{ padding: 'var(--spacing-4)', fontWeight: 600 }}>{row.name}</td>
                                     <td style={{ padding: 'var(--spacing-4)' }}>{row.agents}</td>
-                                    <td style={{ padding: 'var(--spacing-4)', color: '#10B981', fontWeight: 700, fontFamily: 'monospace' }}>{row.val}</td>
+                                    <td style={{ padding: 'var(--spacing-4)', color: '#10B981', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>{row.val}</td>
                                     <td style={{ padding: 'var(--spacing-4)' }}>{row.cap}</td>
                                     <td style={{ padding: 'var(--spacing-4)', color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>{row.impact}</td>
                                 </tr>
@@ -158,7 +158,7 @@ export const RoiSection: React.FC = () => {
                             <tr style={{ background: 'rgba(16, 185, 129, 0.1)', borderTop: '2px solid rgba(16, 185, 129, 0.5)' }}>
                                 <td style={{ padding: 'var(--spacing-4)', fontWeight: 700 }}>TOTAL</td>
                                 <td style={{ padding: 'var(--spacing-4)', fontWeight: 700 }}>23 Agents</td>
-                                <td style={{ padding: 'var(--spacing-4)', color: '#10B981', fontWeight: 800, fontFamily: 'monospace', fontSize: '1.2rem' }}>$150M</td>
+                                <td style={{ padding: 'var(--spacing-4)', color: '#10B981', fontWeight: 800, fontFamily: 'var(--font-mono)', fontSize: '1.2rem' }}>$150M</td>
                                 <td style={{ padding: 'var(--spacing-4)', fontWeight: 700 }}>$22M</td>
                                 <td style={{ padding: 'var(--spacing-4)', color: 'var(--color-text-muted)' }}>Across 7 functions</td>
                             </tr>
@@ -181,20 +181,20 @@ export const RoiSection: React.FC = () => {
                             <tbody>
                                 <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.02)' }}>
                                     <td style={{ padding: 'var(--spacing-4)' }}>Annual Recurring Value</td>
-                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace' }}>$150M</td>
-                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace', color: '#00D4FF', fontWeight: 600 }}>$107.5M</td>
+                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'var(--font-mono)' }}>$150M</td>
+                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'var(--font-mono)', color: '#00D4FF', fontWeight: 600 }}>$107.5M</td>
                                     <td style={{ padding: 'var(--spacing-4)', color: 'var(--color-success)' }}>Guaranteed</td>
                                 </tr>
                                 <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.02)' }}>
                                     <td style={{ padding: 'var(--spacing-4)' }}>Working Capital Unlocking</td>
-                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace' }}>$22M</td>
-                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace', color: '#00D4FF', fontWeight: 600 }}>$28.8M</td>
+                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'var(--font-mono)' }}>$22M</td>
+                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'var(--font-mono)', color: '#00D4FF', fontWeight: 600 }}>$28.8M</td>
                                     <td style={{ padding: 'var(--spacing-4)', color: 'var(--color-success)' }}>Guaranteed</td>
                                 </tr>
                                 <tr>
                                     <td style={{ padding: 'var(--spacing-4)' }}>One-Time (Asset Monetization)</td>
-                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace' }}>$60M</td>
-                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace', color: '#00D4FF', fontWeight: 600 }}>$42M</td>
+                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'var(--font-mono)' }}>$60M</td>
+                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'var(--font-mono)', color: '#00D4FF', fontWeight: 600 }}>$42M</td>
                                     <td style={{ padding: 'var(--spacing-4)', color: 'var(--color-warning)' }}>Market-dependent</td>
                                 </tr>
                             </tbody>
@@ -233,7 +233,7 @@ export const RoiSection: React.FC = () => {
                                         <span style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#fff' }}>$</span>
                                         <input
                                             type="number"
-                                            style={{ width: '100%', padding: '10px 10px 10px 24px', background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '6px', color: '#fff', fontFamily: 'monospace', outline: 'none' }}
+                                            style={{ width: '100%', padding: '10px 10px 10px 24px', background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '6px', color: '#fff', fontFamily: 'var(--font-mono)', outline: 'none' }}
                                             value={rev} onChange={(e) => setRev(parseFloat(e.target.value) || 0)}
                                         />
                                     </div>
@@ -244,7 +244,7 @@ export const RoiSection: React.FC = () => {
                                         <span style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#fff' }}>$</span>
                                         <input
                                             type="number"
-                                            style={{ width: '100%', padding: '10px 10px 10px 24px', background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '6px', color: '#fff', fontFamily: 'monospace', outline: 'none' }}
+                                            style={{ width: '100%', padding: '10px 10px 10px 24px', background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '6px', color: '#fff', fontFamily: 'var(--font-mono)', outline: 'none' }}
                                             value={spend} onChange={(e) => setSpend(parseFloat(e.target.value) || 0)}
                                         />
                                     </div>
@@ -256,7 +256,7 @@ export const RoiSection: React.FC = () => {
                                     <label style={{ fontSize: '0.8rem', color: '#9CA3AF', fontWeight: 500 }}>Total Employees</label>
                                     <input
                                         type="number"
-                                        style={{ width: '100%', padding: '10px 12px', background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '6px', color: '#fff', fontFamily: 'monospace', outline: 'none' }}
+                                        style={{ width: '100%', padding: '10px 12px', background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '6px', color: '#fff', fontFamily: 'var(--font-mono)', outline: 'none' }}
                                         value={hc} onChange={(e) => setHc(parseFloat(e.target.value) || 0)}
                                     />
                                 </div>
@@ -264,7 +264,7 @@ export const RoiSection: React.FC = () => {
                                     <label style={{ fontSize: '0.8rem', color: '#9CA3AF', fontWeight: 500 }}>Active Projects</label>
                                     <input
                                         type="number"
-                                        style={{ width: '100%', padding: '10px 12px', background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '6px', color: '#fff', fontFamily: 'monospace', outline: 'none' }}
+                                        style={{ width: '100%', padding: '10px 12px', background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '6px', color: '#fff', fontFamily: 'var(--font-mono)', outline: 'none' }}
                                         value={projects} onChange={(e) => setProjects(parseFloat(e.target.value) || 0)}
                                     />
                                 </div>
@@ -275,7 +275,7 @@ export const RoiSection: React.FC = () => {
                                     <label style={{ fontSize: '0.8rem', color: '#9CA3AF', fontWeight: 500 }}>Debtor Days</label>
                                     <input
                                         type="number"
-                                        style={{ width: '100%', padding: '10px 12px', background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '6px', color: '#fff', fontFamily: 'monospace', outline: 'none' }}
+                                        style={{ width: '100%', padding: '10px 12px', background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '6px', color: '#fff', fontFamily: 'var(--font-mono)', outline: 'none' }}
                                         value={days} onChange={(e) => setDays(parseFloat(e.target.value) || 0)}
                                     />
                                 </div>
@@ -283,7 +283,7 @@ export const RoiSection: React.FC = () => {
                                     <label style={{ fontSize: '0.8rem', color: '#9CA3AF', fontWeight: 500 }}>Invoice Vol/Month</label>
                                     <input
                                         type="number"
-                                        style={{ width: '100%', padding: '10px 12px', background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '6px', color: '#fff', fontFamily: 'monospace', outline: 'none' }}
+                                        style={{ width: '100%', padding: '10px 12px', background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '6px', color: '#fff', fontFamily: 'var(--font-mono)', outline: 'none' }}
                                         value={invoices} onChange={(e) => setInvoices(parseFloat(e.target.value) || 0)}
                                     />
                                 </div>
@@ -305,7 +305,7 @@ export const RoiSection: React.FC = () => {
                                     key={results.total}
                                     initial={{ scale: 0.95, opacity: 0 }}
                                     animate={{ scale: 1, opacity: 1 }}
-                                    style={{ fontSize: '3.5rem', fontWeight: 800, color: '#10B981', letterSpacing: '-1px', lineHeight: 1.1, fontFamily: 'monospace' }}
+                                    style={{ fontSize: '3.5rem', fontWeight: 800, color: '#10B981', letterSpacing: '-1px', lineHeight: 1.1, fontFamily: 'var(--font-mono)' }}
                                 >
                                     {formatM(results.total)}
                                 </motion.div>

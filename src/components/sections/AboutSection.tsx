@@ -54,19 +54,19 @@ export const AboutSection: React.FC = () => {
 
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 'var(--spacing-6)', marginTop: 'auto', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 'var(--spacing-8)' }}>
                             <div>
-                                <div style={{ color: '#fff', fontSize: 'var(--font-size-2xl)', fontWeight: 800, fontFamily: 'monospace' }}>120+</div>
+                                <div style={{ color: '#fff', fontSize: 'var(--font-size-2xl)', fontWeight: 800, fontFamily: 'var(--font-mono)' }}>120+</div>
                                 <div style={{ color: '#9CA3AF', fontSize: 'var(--font-size-sm)', fontWeight: 500, marginTop: '4px' }}>Professionals</div>
                             </div>
                             <div>
-                                <div style={{ color: '#fff', fontSize: 'var(--font-size-2xl)', fontWeight: 800, fontFamily: 'monospace' }}>35%</div>
+                                <div style={{ color: '#fff', fontSize: 'var(--font-size-2xl)', fontWeight: 800, fontFamily: 'var(--font-mono)' }}>35%</div>
                                 <div style={{ color: '#9CA3AF', fontSize: 'var(--font-size-sm)', fontWeight: 500, marginTop: '4px' }}>Female Workforce</div>
                             </div>
                             <div>
-                                <div style={{ color: '#fff', fontSize: 'var(--font-size-2xl)', fontWeight: 800, fontFamily: 'monospace' }}>50+</div>
+                                <div style={{ color: '#fff', fontSize: 'var(--font-size-2xl)', fontWeight: 800, fontFamily: 'var(--font-mono)' }}>50+</div>
                                 <div style={{ color: '#9CA3AF', fontSize: 'var(--font-size-sm)', fontWeight: 500, marginTop: '4px' }}>Enterprise Clients</div>
                             </div>
                             <div>
-                                <div style={{ color: '#fff', fontSize: 'var(--font-size-2xl)', fontWeight: 800, fontFamily: 'monospace' }}>40+</div>
+                                <div style={{ color: '#fff', fontSize: 'var(--font-size-2xl)', fontWeight: 800, fontFamily: 'var(--font-mono)' }}>40+</div>
                                 <div style={{ color: '#9CA3AF', fontSize: 'var(--font-size-sm)', fontWeight: 500, marginTop: '4px' }}>AI Products</div>
                             </div>
                         </div>
