@@ -49,7 +49,7 @@ export const AboutSection: React.FC = () => {
                             Global Scale, Proven Impact
                         </h3>
                         <p style={{ color: 'var(--color-text-muted)', lineHeight: 1.8, fontSize: 'var(--font-size-lg)', marginBottom: 'var(--spacing-12)' }}>
-                            SequelString AI Pvt. Ltd. (SAI) is a DPIIT-recognized enterprise AI company headquartered in Navi Mumbai, with a strategic presence in Delaware, USA. We deliver mission-critical, AI-driven digital transformation for Fortune 500s and government entities.
+                            SequelString AI Pvt. Ltd. (SAI) is a DPIIT-recognized enterprise AI company headquartered in San Francisco, with a strategic presence in Delaware, USA. We deliver mission-critical, AI-driven digital transformation for Fortune 500s and government entities.
                         </p>
 
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 'var(--spacing-6)', marginTop: 'auto', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 'var(--spacing-8)' }}>
@@ -93,7 +93,7 @@ export const AboutSection: React.FC = () => {
                                 <strong style={{ color: '#00D4FF' }}>Mission:</strong> To democratize enterprise-grade AI, enabling emerging market organizations to compete globally through intelligent process transformation and data-sovereign technology.
                             </p>
                             <p style={{ color: 'var(--color-text-muted)', lineHeight: 1.7, fontSize: 'var(--font-size-base)' }}>
-                                <strong style={{ color: '#00D4FF' }}>Vision:</strong> Driving $2.1B+ in client value across India, MEA, and APAC as the preferred AI transformation partner for future-ready enterprises prioritizing governance and sustainability.
+                                <strong style={{ color: '#00D4FF' }}>Vision:</strong> Driving $2.1B+ in client value across North America, EMEA, and APAC as the preferred AI transformation partner for future-ready enterprises prioritizing governance and sustainability.
                             </p>
                         </motion.div>
 

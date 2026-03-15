@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 const industries = [
     {
         title: "Infrastructure & Construction",
-        description: "AI agents for HAM/EPC projects: procurement optimization, equipment fleet management, NHAI compliance, RA bill generation. Deployed successfully at leading ₹15,000+ Cr order book infrastructure conglomerates.",
+        description: "AI agents for HAM/EPC projects: procurement optimization, equipment fleet management, DOT compliance, RA bill generation. Deployed successfully at leading $1.8B+ order book infrastructure conglomerates.",
         metrics: [
             { value: "$154M+", label: "Annual Value" },
             { value: "$22.2M", label: "WC Unlocking" }

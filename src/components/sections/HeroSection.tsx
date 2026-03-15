@@ -6,13 +6,13 @@ import {
 import { Badge } from '../ui/Badge';
 
 const departments = [
-    { icon: ShoppingCart, name: 'Procurement', mapped: 'procurement', value: '₹320 Cr/Yr' },
-    { icon: PieChart, name: 'Finance', mapped: 'finance', value: '₹280 Cr/Yr' },
-    { icon: Shield, name: 'Compliance', mapped: 'compliance', value: '₹150 Cr/Yr' },
-    { icon: Users, name: 'HR', mapped: 'hr', value: '₹120 Cr/Yr' },
-    { icon: Layers, name: 'Operations', mapped: 'operations', value: '₹180 Cr/Yr' },
-    { icon: TrendingUp, name: 'Sales', mapped: 'sales', value: '₹140 Cr/Yr' },
-    { icon: Monitor, name: 'IT', mapped: 'it', value: '₹90 Cr/Yr' }
+    { icon: ShoppingCart, name: 'Procurement', mapped: 'procurement', value: '$40M/Yr' },
+    { icon: PieChart, name: 'Finance', mapped: 'finance', value: '$35M/Yr' },
+    { icon: Shield, name: 'Compliance', mapped: 'compliance', value: '$18M/Yr' },
+    { icon: Users, name: 'HR', mapped: 'hr', value: '$15M/Yr' },
+    { icon: Layers, name: 'Operations', mapped: 'operations', value: '$22M/Yr' },
+    { icon: TrendingUp, name: 'Sales', mapped: 'sales', value: '$17M/Yr' },
+    { icon: Monitor, name: 'IT', mapped: 'it', value: '$11M/Yr' }
 ];
 
 interface HeroSectionProps {
@@ -51,10 +51,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onDepartmentClick }) =
                         </Badge>
                         <h1 style={{ fontSize: 'var(--font-size-5xl)', letterSpacing: '-0.02em', marginBottom: 'var(--spacing-4)' }}>
                             AI Agents for Enterprise Functions <br/>
-                            <span className="text-gradient" style={{ fontSize: 'var(--font-size-4xl)' }}>- ₹1,280 Cr Annual Value</span>
+                            <span className="text-gradient" style={{ fontSize: 'var(--font-size-4xl)' }}>- Outputs $150M+ Annual Value</span>
                         </h1>
                         <p style={{ fontSize: 'var(--font-size-xl)', color: 'var(--color-text-muted)', marginBottom: 'var(--spacing-8)', lineHeight: 1.5 }}>
-                            Stop manual processes. Our autonomous agentic platform deploys 23 core agents that work 24/7. Proven ROI in 50+ enterprises across India, MEA, and APAC.
+                            Stop manual processes. Our autonomous agentic platform deploys 23 core agents that work 24/7. Proven ROI in 50+ enterprises across North America, EMEA, and APAC.
                         </p>
 
                         <div style={{ display: 'flex', gap: 'var(--spacing-4)', justifyContent: 'center' }}>
@@ -152,7 +152,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onDepartmentClick }) =
                         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-4)' }}>
                             <TrendingUp size={32} style={{ color: 'var(--color-success)' }} />
                             <div>
-                                <div style={{ color: '#fff', fontWeight: 700, fontSize: 'var(--font-size-lg)' }}>₹47,000+ Cr</div>
+                                <div style={{ color: '#fff', fontWeight: 700, fontSize: 'var(--font-size-lg)' }}>$5.5B+</div>
                                 <div style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-sm)' }}>Combined Client Revenue Protected</div>
                             </div>
                         </div>

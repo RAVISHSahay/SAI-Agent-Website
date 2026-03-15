@@ -5,8 +5,8 @@ import { Building2, Search, Activity, ShieldCheck, Rocket, Maximize, CheckCircle
 
 const stats = [
     { value: "50+", label: "Enterprise Clients" },
-    { value: "₹47,000+ Cr", label: "Combined Client Revenue" },
-    { value: "13", label: "States Covered in India" },
+    { value: "$5.5B+", label: "Combined Client Revenue" },
+    { value: "24", label: "Countries Covered Globally" },
     { value: "100+", label: "Employees at SAI" }
 ];
 
@@ -45,27 +45,27 @@ const deploymentSteps = [
 
 const caseStudies = [
     {
-        client: "PNC Infratech",
+        client: "Fortune 500 Infrastructure Client",
         industry: "Infrastructure",
         icon: Building2,
-        challenge: "Debtor days at 114, ₹4,000 Cr in procurement spend, and manual contract processing.",
+        challenge: "Debtor days at 114, $480M in procurement spend, and manual contract processing.",
         solution: "Procurement AI + Cash Flow AI",
         impact: [
-            "₹1,280 Cr annual value generated",
-            "₹185 Cr working capital unlocked (debtor days 114 → 96)",
+            "$150M annual value generated",
+            "$22M working capital unlocked (debtor days 114 → 96)",
             "42,567% projected ROI over 5 years"
         ],
-        quote: "Deploying SequelString AI's agents transformed our finance operations. The AI predicted material requirements with 96% accuracy, preventing ₹40 Cr in excess inventory.",
+        quote: "Deploying SequelString AI's agents transformed our finance operations. The AI predicted material requirements with 96% accuracy, preventing $5M in excess inventory.",
         color: "#00D4FF"
     },
     {
-        client: "Jubilant FoodWorks",
+        client: "Global FMCG Leader",
         industry: "FMCG / Retail",
         icon: Landmark,
         challenge: "12,000 invoices/month across 500+ suppliers creating massive Procure-to-Report bottlenecks.",
         solution: "Invoice Processing AI + Procurement AI",
         impact: [
-            "₹478 Cr Procure-to-Report value",
+            "$57.4M Procure-to-Report value",
             "AP team reduced from 18 FTE → 5 FTE",
             "603% ROI with a 5.6-month payback"
         ],
@@ -76,22 +76,22 @@ const caseStudies = [
         client: "Tier-1 Manufacturer",
         industry: "Automotive",
         icon: Factory,
-        challenge: "SAP maintenance overhead and reactive fleet management for ₹1,300 Cr in assets.",
+        challenge: "SAP maintenance overhead and reactive fleet management for $156M in assets.",
         solution: "SAP Automation AI + Fleet Health AI",
         impact: [
-            "₹172 Cr annual value unlocked",
+            "$20.6M annual value unlocked",
             "20% fleet utilization improvement",
             "95% defect detection rate (vs 70% manual)"
         ],
-        quote: "Our SAP master data updates are now instant, and predictive maintenance stopped a ₹15 Cr potential downtime event before it occurred.",
+        quote: "Our SAP master data updates are now instant, and predictive maintenance stopped a $1.8M potential downtime event before it occurred.",
         color: "#8B5CF6"
     }
 ];
 
 const logos = [
-    "Delhi Metro (DMRC)", "KPMG India", "Hero MotoCorp", "Vodafone India",
-    "Jubilant FoodWorks", "PNC Infratech", "HDFC Bank", "Larsen & Toubro",
-    "Tata Motors", "Infosys", "Adani Group", "Mahindra"
+    "New York MTA", "KPMG", "Ford Motor Company", "Verizon",
+    "Global FMCG Leader", "Fortune 500 Infrastructure Client", "JPMorgan Chase", "Bechtel",
+    "General Motors", "Accenture", "Caterpillar", "John Deere"
 ];
 
 export const SuccessStoriesSection: React.FC = () => {

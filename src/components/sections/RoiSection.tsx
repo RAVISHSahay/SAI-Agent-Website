@@ -19,25 +19,25 @@ export const RoiSection: React.FC = () => {
     const wcUnlock = (rev / 365) * daysReduction * 0.3; // 30% conservative realization
     
     // Finance: ~0.5% of Revenue as baseline AP/AR efficiency
-    const finYield = rev * 0.005 + (invoices * 12 * 50 / 10000000); // 50 INR per invoice saved 
+    const finYield = rev * 0.005 + (invoices * 12 * 1 / 1000000); // $1 per invoice saved 
     
     // Compliance: Flat conservative scale
-    const compYield = 30; // ~30 Cr
+    const compYield = 4.0; // ~$4M
     
     // Operations: Project-based
-    const opsYield = projects * 2.5; // ~2.5 Cr per project
+    const opsYield = projects * 0.3; // ~$0.3M per project
     
     // Sales: Revenue bump
     const salesYield = rev * 0.02; // 2% rev increase
     
     // HR & IT: Employee-based savings
-    const hritYield = hc * 0.005; // 0.005 Cr (50k INR) per employee/year
+    const hritYield = hc * 0.0006; // $600 per employee/year in Millions
 
     const totalYield = procYield + finYield + compYield + opsYield + salesYield + hritYield;
     
     // Financial Metrics
-    const investment = 3.5; // 3.5 Cr Yr 1
-    const recurring = 1.0; // 1.0 Cr
+    const investment = 0.45; // $450k Yr 1
+    const recurring = 0.12; // $120k
     
     let paybackWeeks = 0;
     if (totalYield > 0) {
@@ -66,8 +66,8 @@ export const RoiSection: React.FC = () => {
         fiveYearROI: roi
     };
 
-    const formatCr = (num: number) => {
-        return '₹' + num.toLocaleString('en-IN', { maximumFractionDigits: 1 }) + ' Cr';
+    const formatM = (num: number) => {
+        return '$' + num.toLocaleString('en-US', { maximumFractionDigits: 1 }) + 'M';
     };
 
     return (
@@ -83,7 +83,7 @@ export const RoiSection: React.FC = () => {
                         fontWeight: 900,
                         letterSpacing: '-1px',
                         lineHeight: 1,
-                        background: 'linear-gradient(135deg, #00D4FF 0%, #10B981 100%)',
+                        background: 'linear-gradient(245deg, #00D4FF 0%, #10B981 100%)',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                         marginBottom: 'var(--spacing-3)',
@@ -100,7 +100,7 @@ export const RoiSection: React.FC = () => {
                         {/* Card 1 */}
                         <div className="glass-panel" style={{ padding: 'var(--spacing-6)' }}>
                             <div style={{ fontSize: '2rem', fontWeight: 800, color: '#00D4FF', fontFamily: 'monospace', marginBottom: 'var(--spacing-2)' }}>
-                                ₹3.5 Cr
+                                $450k
                             </div>
                             <div style={{ color: '#9CA3AF', fontSize: 'var(--font-size-sm)', fontWeight: 500 }}>Year 1 Investment</div>
                         </div>
@@ -108,7 +108,7 @@ export const RoiSection: React.FC = () => {
                         {/* Card 2 */}
                         <div className="glass-panel" style={{ padding: 'var(--spacing-6)' }}>
                             <div style={{ fontSize: '2rem', fontWeight: 800, color: '#00D4FF', fontFamily: 'monospace', marginBottom: 'var(--spacing-2)' }}>
-                                ₹1.0 Cr
+                                $120k
                             </div>
                             <div style={{ color: '#9CA3AF', fontSize: 'var(--font-size-sm)', fontWeight: 500 }}>Annual Recurring Cost</div>
                         </div>
@@ -116,7 +116,7 @@ export const RoiSection: React.FC = () => {
                         {/* Card 3 */}
                         <div className="glass-panel" style={{ padding: 'var(--spacing-6)' }}>
                             <div style={{ fontSize: '2rem', fontWeight: 800, color: '#10B981', fontFamily: 'monospace', marginBottom: 'var(--spacing-2)' }}>
-                                ₹1,280 Cr
+                                $150M
                             </div>
                             <div style={{ color: '#9CA3AF', fontSize: 'var(--font-size-sm)', fontWeight: 500 }}>Annual Value Generated</div>
                         </div>
@@ -125,7 +125,7 @@ export const RoiSection: React.FC = () => {
 
                 <div className="glass-panel" style={{ overflowX: 'auto', marginBottom: 'var(--spacing-16)', maxWidth: '1100px', margin: '0 auto var(--spacing-16)' }}>
                     <h3 style={{ padding: 'var(--spacing-6)', fontSize: '1.25rem', fontWeight: 700, borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                        ₹1,280 Cr Value Breakdown Across 7 Functions
+                        $150M Value Breakdown Across 7 Functions
                     </h3>
                     <table style={{ width: '100%', minWidth: '800px', borderCollapse: 'collapse', textAlign: 'left' }}>
                         <thead>
@@ -139,13 +139,13 @@ export const RoiSection: React.FC = () => {
                         </thead>
                         <tbody>
                             {[
-                                { name: '1. Procurement & Supply Chain', agents: 3, val: '₹478.6 Cr', cap: '₹65 Cr', impact: '30% faster PRs, ₹4,000 Cr spend optimized' },
-                                { name: '2. Finance & Accounting', agents: 4, val: '₹220 Cr', cap: '₹100 Cr', impact: 'Debtor days 114→90, 90-day cash forecast' },
-                                { name: '3. Compliance & Risk', agents: 3, val: '₹32 Cr', cap: '—', impact: '20+ GSTINs, ₹8 Cr ITC, 100% compliance rate' },
-                                { name: '4. HR & Administration', agents: 2, val: '₹45 Cr', cap: '—', impact: '7,000 employees, 99.5% payroll accuracy' },
-                                { name: '5. Operations & Projects', agents: 3, val: '₹112 Cr', cap: '₹20 Cr', impact: '₹31 Cr bonuses, ₹1,300 Cr fleet analysis' },
-                                { name: '6. Sales & Bid Management', agents: 3, val: '₹207.5 Cr', cap: '—', impact: '1,200 tenders tracked, 38% win rate' },
-                                { name: '7. IT & Technology', agents: 2, val: '₹35 Cr', cap: '—', impact: '180K SAP transactions/mo, 85% auto-res' },
+                                { name: '1. Procurement & Supply Chain', agents: 3, val: '$58M', cap: '$8M', impact: '30% faster PRs, $480M spend optimized' },
+                                { name: '2. Finance & Accounting', agents: 4, val: '$26M', cap: '$12M', impact: 'Debtor days 114→90, 90-day cash forecast' },
+                                { name: '3. Compliance & Risk', agents: 3, val: '$4M', cap: '—', impact: '20+ Tax IDs, $1M Tax Credits, 100% compliance rate' },
+                                { name: '4. HR & Administration', agents: 2, val: '$5.5M', cap: '—', impact: '7,000 employees, 99.5% payroll accuracy' },
+                                { name: '5. Operations & Projects', agents: 3, val: '$13.4M', cap: '$2.4M', impact: '$3.7M bonuses, $156M fleet analysis' },
+                                { name: '6. Sales & Bid Management', agents: 3, val: '$25M', cap: '—', impact: '1,200 tenders tracked, 38% win rate' },
+                                { name: '7. IT & Technology', agents: 2, val: '$4.2M', cap: '—', impact: '180K SAP transactions/mo, 85% auto-res' },
                             ].map((row, idx) => (
                                 <tr key={idx} style={{ borderBottom: '1px solid rgba(255,255,255,0.02)', background: idx % 2 === 0 ? 'transparent' : 'rgba(0, 212, 255, 0.02)' }}>
                                     <td style={{ padding: 'var(--spacing-4)', fontWeight: 600 }}>{row.name}</td>
@@ -158,8 +158,8 @@ export const RoiSection: React.FC = () => {
                             <tr style={{ background: 'rgba(16, 185, 129, 0.1)', borderTop: '2px solid rgba(16, 185, 129, 0.5)' }}>
                                 <td style={{ padding: 'var(--spacing-4)', fontWeight: 700 }}>TOTAL</td>
                                 <td style={{ padding: 'var(--spacing-4)', fontWeight: 700 }}>23 Agents</td>
-                                <td style={{ padding: 'var(--spacing-4)', color: '#10B981', fontWeight: 800, fontFamily: 'monospace', fontSize: '1.2rem' }}>₹1,280 Cr</td>
-                                <td style={{ padding: 'var(--spacing-4)', fontWeight: 700 }}>₹185 Cr</td>
+                                <td style={{ padding: 'var(--spacing-4)', color: '#10B981', fontWeight: 800, fontFamily: 'monospace', fontSize: '1.2rem' }}>$150M</td>
+                                <td style={{ padding: 'var(--spacing-4)', fontWeight: 700 }}>$22M</td>
                                 <td style={{ padding: 'var(--spacing-4)', color: 'var(--color-text-muted)' }}>Across 7 functions</td>
                             </tr>
                         </tbody>
@@ -181,20 +181,20 @@ export const RoiSection: React.FC = () => {
                             <tbody>
                                 <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.02)' }}>
                                     <td style={{ padding: 'var(--spacing-4)' }}>Annual Recurring Value</td>
-                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace' }}>₹1,280 Cr</td>
-                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace', color: '#00D4FF', fontWeight: 600 }}>₹896 Cr</td>
+                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace' }}>$150M</td>
+                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace', color: '#00D4FF', fontWeight: 600 }}>$107.5M</td>
                                     <td style={{ padding: 'var(--spacing-4)', color: 'var(--color-success)' }}>Guaranteed</td>
                                 </tr>
                                 <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.02)' }}>
                                     <td style={{ padding: 'var(--spacing-4)' }}>Working Capital Unlocking</td>
-                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace' }}>₹185 Cr</td>
-                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace', color: '#00D4FF', fontWeight: 600 }}>₹130 Cr</td>
+                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace' }}>$22M</td>
+                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace', color: '#00D4FF', fontWeight: 600 }}>$28.8M</td>
                                     <td style={{ padding: 'var(--spacing-4)', color: 'var(--color-success)' }}>Guaranteed</td>
                                 </tr>
                                 <tr>
                                     <td style={{ padding: 'var(--spacing-4)' }}>One-Time (Asset Monetization)</td>
-                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace' }}>₹500 Cr</td>
-                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace', color: '#00D4FF', fontWeight: 600 }}>₹350 Cr</td>
+                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace' }}>$60M</td>
+                                    <td style={{ padding: 'var(--spacing-4)', fontFamily: 'monospace', color: '#00D4FF', fontWeight: 600 }}>$42M</td>
                                     <td style={{ padding: 'var(--spacing-4)', color: 'var(--color-warning)' }}>Market-dependent</td>
                                 </tr>
                             </tbody>
@@ -228,9 +228,9 @@ export const RoiSection: React.FC = () => {
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="flex-col gap-1">
-                                    <label style={{ fontSize: '0.8rem', color: '#9CA3AF', fontWeight: 500 }}>Annual Rev (Cr)</label>
+                                    <label style={{ fontSize: '0.8rem', color: '#9CA3AF', fontWeight: 500 }}>Annual Rev ($M)</label>
                                     <div style={{ position: 'relative' }}>
-                                        <span style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#fff' }}>₹</span>
+                                        <span style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#fff' }}>$</span>
                                         <input
                                             type="number"
                                             style={{ width: '100%', padding: '10px 10px 10px 24px', background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '6px', color: '#fff', fontFamily: 'monospace', outline: 'none' }}
@@ -239,9 +239,9 @@ export const RoiSection: React.FC = () => {
                                     </div>
                                 </div>
                                 <div className="flex-col gap-1">
-                                    <label style={{ fontSize: '0.8rem', color: '#9CA3AF', fontWeight: 500 }}>Procure Spend (Cr)</label>
+                                    <label style={{ fontSize: '0.8rem', color: '#9CA3AF', fontWeight: 500 }}>Procure Spend ($M)</label>
                                     <div style={{ position: 'relative' }}>
-                                        <span style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#fff' }}>₹</span>
+                                        <span style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#fff' }}>$</span>
                                         <input
                                             type="number"
                                             style={{ width: '100%', padding: '10px 10px 10px 24px', background: '#0a1120', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '6px', color: '#fff', fontFamily: 'monospace', outline: 'none' }}
@@ -307,31 +307,31 @@ export const RoiSection: React.FC = () => {
                                     animate={{ scale: 1, opacity: 1 }}
                                     style={{ fontSize: '3.5rem', fontWeight: 800, color: '#10B981', letterSpacing: '-1px', lineHeight: 1.1, fontFamily: 'monospace' }}
                                 >
-                                    {formatCr(results.total)}
+                                    {formatM(results.total)}
                                 </motion.div>
                             </div>
 
                             <div className="grid grid-cols-2 gap-2 text-sm text-gray-300 font-mono" style={{ marginBottom: 'var(--spacing-6)' }}>
                                 <div className="flex justify-between items-center p-2 rounded bg-black/20">
-                                    <span>Procurement</span> <span className="text-white font-bold">{formatCr(results.proc)}</span>
+                                    <span>Procurement</span> <span className="text-white font-bold">{formatM(results.proc)}</span>
                                 </div>
                                 <div className="flex justify-between items-center p-2 rounded bg-black/20">
-                                    <span>WC Unlocked</span> <span className="text-white font-bold">{formatCr(results.wc)}</span>
+                                    <span>WC Unlocked</span> <span className="text-white font-bold">{formatM(results.wc)}</span>
                                 </div>
                                 <div className="flex justify-between items-center p-2 rounded bg-black/20">
-                                    <span>Finance</span> <span className="text-white font-bold">{formatCr(results.fin)}</span>
+                                    <span>Finance</span> <span className="text-white font-bold">{formatM(results.fin)}</span>
                                 </div>
                                 <div className="flex justify-between items-center p-2 rounded bg-black/20">
-                                    <span>Compliance</span> <span className="text-white font-bold">{formatCr(results.comp)}</span>
+                                    <span>Compliance</span> <span className="text-white font-bold">{formatM(results.comp)}</span>
                                 </div>
                                 <div className="flex justify-between items-center p-2 rounded bg-black/20">
-                                    <span>Ops/Projects</span> <span className="text-white font-bold">{formatCr(results.ops)}</span>
+                                    <span>Ops/Projects</span> <span className="text-white font-bold">{formatM(results.ops)}</span>
                                 </div>
                                 <div className="flex justify-between items-center p-2 rounded bg-black/20">
-                                    <span>Sales</span> <span className="text-white font-bold">{formatCr(results.sales)}</span>
+                                    <span>Sales</span> <span className="text-white font-bold">{formatM(results.sales)}</span>
                                 </div>
                                 <div className="flex justify-between items-center p-2 rounded bg-black/20 col-span-2">
-                                    <span>HR & IT</span> <span className="text-white font-bold">{formatCr(results.hrit)}</span>
+                                    <span>HR & IT</span> <span className="text-white font-bold">{formatM(results.hrit)}</span>
                                 </div>
                             </div>
 
@@ -342,9 +342,9 @@ export const RoiSection: React.FC = () => {
                                 </div>
                                 <div className="text-center p-3 rounded" style={{ background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
                                     <div className="text-xs text-gray-400 mb-1">3-Year NPV</div>
-                                    <div className="font-bold font-mono text-emerald-400">{formatCr(results.threeYearNPV)}</div>
+                                    <div className="font-bold font-mono text-emerald-400">{formatM(results.threeYearNPV)}</div>
                                 </div>
-                                <div className="text-center p-3 rounded" style={{ background: 'rgba(139, 92, 246, 0.1)', border: '1px solid rgba(139, 92, 246, 0.2)' }}>
+                                <div className="text-center p-3 rounded" style={{ background: 'rgba(249, 92, 246, 0.1)', border: '1px solid rgba(249, 92, 246, 0.2)' }}>
                                     <div className="text-xs text-gray-400 mb-1">5-Year ROI</div>
                                     <div className="font-bold font-mono text-purple-400">{results.fiveYearROI.toLocaleString('en-IN', { maximumFractionDigits: 0 })}%</div>
                                 </div>
