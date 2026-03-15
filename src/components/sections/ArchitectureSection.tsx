@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Shield, BarChart, GitMerge, Brain, Database, Server } from 'lucide-react';
+import { SiSap, SiOracle, SiSalesforce, SiSpringboot } from 'react-icons/si';
+import { FaMicrochip } from 'react-icons/fa';
 import { Badge } from '../ui/Badge';
 
 const architectureLayers = [
@@ -140,10 +142,17 @@ export const ArchitectureSection: React.FC = () => {
                             <Server size={24} />
                             ENTERPRISE SYSTEMS
                         </div>
-                        <div className="flex" style={{ gap: 'var(--spacing-4)', flexWrap: 'wrap', justifyContent: 'center' }}>
-                            {['SAP ERP', 'HRMS (SuccessFactors)', 'Oracle CRM', 'Bank APIs', 'IoT Sensors'].map(sys => (
-                                <div key={sys} style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-sm)' }}>
-                                    {sys}
+                        <div className="flex" style={{ gap: 'var(--spacing-6)', flexWrap: 'wrap', justifyContent: 'center' }}>
+                            {[
+                                { name: 'SAP ERP', icon: SiSap },
+                                { name: 'HRMS (SuccessFactors)', icon: SiOracle },
+                                { name: 'Salesforce CRM', icon: SiSalesforce },
+                                { name: 'Bank APIs', icon: SiSpringboot },
+                                { name: 'IoT Sensors', icon: FaMicrochip }
+                            ].map(sys => (
+                                <div key={sys.name} className="flex items-center gap-2" style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-base)', fontWeight: 500 }}>
+                                    <sys.icon size={20} />
+                                    {sys.name}
                                 </div>
                             ))}
                         </div>
