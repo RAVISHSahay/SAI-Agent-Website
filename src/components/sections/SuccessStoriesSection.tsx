@@ -45,7 +45,7 @@ const deploymentSteps = [
 
 const caseStudies = [
     {
-        client: "Fortune 500 Infrastructure Client",
+        client: "Leading Tier-1 EPC Contractor",
         industry: "Infrastructure",
         icon: Building2,
         challenge: "Debtor days at 114, $480M in procurement spend, and manual contract processing.",
@@ -59,7 +59,7 @@ const caseStudies = [
         color: "#00D4FF"
     },
     {
-        client: "Global FMCG Leader",
+        client: "Multinational Food & Beverage Corporation",
         industry: "FMCG / Retail",
         icon: Landmark,
         challenge: "12,000 invoices/month across 500+ suppliers creating massive Procure-to-Report bottlenecks.",
@@ -89,9 +89,9 @@ const caseStudies = [
 ];
 
 const logos = [
-    "New York MTA", "KPMG", "Ford Motor Company", "Verizon",
-    "Global FMCG Leader", "Fortune 500 Infrastructure Client", "JPMorgan Chase", "Bechtel",
-    "General Motors", "Accenture", "Caterpillar", "John Deere"
+    "Global Transit Authority", "Big 4 Advisory Firm", "Multinational Automotive Manufacturer", "Tier-1 Telecommunications Provider",
+    "Multinational Food & Beverage Corporation", "Leading Tier-1 EPC Contractor", "Global Investment Bank", "Multinational Construction Firm",
+    "Leading Automotive Group", "Global IT Services Firm", "Heavy Equipment Manufacturer", "Agricultural Machinery Leader"
 ];
 
 export const SuccessStoriesSection: React.FC = () => {
